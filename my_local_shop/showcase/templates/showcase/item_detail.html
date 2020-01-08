@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ object.title }}
+{% endblock %}
+
+{% block content %}
+
+<body class="text-center">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-lg-4">
+        <img src="{{ object.image.url }}" class="card-img-top" alt="...">
+        <div class="alert alert-info mt-2" role="alert">
+          <h5 class="alert-heading">Цена {{ object.price }} ₽</h5>
+          {% if phone_number %}
+          <hr>
+          <p class="mb-0">
+            <a href="tel:{{ phone_number }}" class="btn btn-outline-primary mx-2">Позвонить</a>
+            <a href="//wa.me/{{ phone_number }}" class="btn btn-outline-success mx-2">WhatsApp</a>
+          </p>
+          {% endif %}
+        </div>
+        {% if user.is_authenticated %}
+        <div class="alert alert-secondary" role="alert">
+          <a href="#" class="btn btn-outline-danger mx-2">Изменить</a>
+          <a href="{% url 'item_delete_url' object.pk %}" class="btn btn-outline-danger mx-2">Удалить</a>
+        </div>
+        {% endif %}
+      </div>
+      <div class="col-12 col-lg-8">
+        <h1 class="text-break">{{ object.title }}</h1>
+        <hr color="#00CED1">
+        <h4 class="text-break">{{ object.description }}</h4>
+      </div>
+    </div>
+  </div>
+  <hr>
+</body>
+{% endblock %}

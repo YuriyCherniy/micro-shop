@@ -1,0 +1,8 @@
+venv/
+.vscode/
+__pycache__/
+htmlcov/
+media/
+*.pyc
+*.sqlite3
+.coverage

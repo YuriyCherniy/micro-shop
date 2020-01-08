@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Удалить {{ object.title }}?
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <form method="post">{% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Это действие приведёт к безвозвратному удалению!</legend>
+            <h2>Удалить товар - {{ object }}?</h2>
+        </fieldset>
+        <button class="btn btn-danger" type="submit">Да</button>
+        <a class="btn btn-secondary" href="{% url 'item_detail_url' object.pk %}">Отменить</a>
+    </form>
+</div>
+{% endblock %}

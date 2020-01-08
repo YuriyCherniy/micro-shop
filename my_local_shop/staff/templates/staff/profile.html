@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Профиль
+{% endblock %}
+
+{% block content %}
+<h1>{{ object.userprofile.phone_number }}</h1>
+<h1>{{ object.date_joined }}</h1>
+{% endblock %}
