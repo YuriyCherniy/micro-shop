@@ -43,7 +43,7 @@ class ItemCreateView(LoginRequiredMixin, View):
         form = ItemModelForm(request.POST, request.FILES)
         if form.is_valid():
             new_item = form.save()
-            messages.success(self.request, self.success_message)
+            messages.success(request, self.success_message)
             return redirect(new_item)
         return render(request, 'showcase/item_form.html', {'form': form})
 
@@ -67,5 +67,5 @@ class ItemDeleteView(LoginRequiredMixin, DeleteView):
         Django messages framework requires to redefine
         delete method to add flash message
         '''
-        messages.success(self.request, self.success_message)
+        messages.success(request, self.success_message)
         return super().delete(request, *args, **kwargs)
