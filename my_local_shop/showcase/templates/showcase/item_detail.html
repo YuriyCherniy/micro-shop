@@ -4,6 +4,12 @@
 {{ object.title }}
 {% endblock %}
 
+{% block navbuttons %}
+<a class="nav-item nav-link" href="{% url 'item_update_url' object.pk %}" tabindex="-1" aria-disabled="true">Изменить товар</a>
+<a class="nav-item nav-link" href="{% url 'item_delete_url' object.pk %}" tabindex="-1" aria-disabled="true">Удалить товар</a>
+{% endblock %}
+
+
 {% block content %}
 
 <body class="text-center">
@@ -21,12 +27,6 @@
           </p>
           {% endif %}
         </div>
-        {% if user.is_authenticated %}
-        <div class="alert alert-secondary" role="alert">
-          <a href="#" class="btn btn-outline-danger mx-2">Изменить</a>
-          <a href="{% url 'item_delete_url' object.pk %}" class="btn btn-outline-danger mx-2">Удалить</a>
-        </div>
-        {% endif %}
       </div>
       <div class="col-12 col-lg-8">
         <h1 class="text-break">{{ object.title }}</h1>
