@@ -21,5 +21,6 @@ class TestModels(TestCase):
 
     def test_item_get_absolute_url_method(self):
         self.assertEquals(
-            self.item.get_absolute_url(), reverse('item_detail_url', args=[1])
+            self.item.get_absolute_url(),
+            reverse('item_detail_url', args=[self.item.pk])
         )

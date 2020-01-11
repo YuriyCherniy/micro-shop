@@ -1,4 +1,5 @@
 from django.test import TestCase, Client
+from django.urls import reverse
 from django.contrib.auth.models import User
 
 from staff.models import UserProfile
@@ -16,4 +17,10 @@ class TestModels(TestCase):
         self.assertEquals(
             self.user.userprofile.__str__(),
             f'Пользователь: {self.user.username}'
+        )
+
+    def test_userprofile_get_absolute_url(self):
+        self.assertEquals(
+            self.user.userprofile.get_absolute_url(),
+            reverse('profile_url', args=[self.user.userprofile.pk])
         )

@@ -15,7 +15,7 @@ class Item(models.Model):
         help_text='Длинна названия не может превышать 20 символов.'
     )
     image = models.ImageField(
-        upload_to='items',
+        upload_to='item_images',
         verbose_name='изображение'
     )
     description = models.TextField(

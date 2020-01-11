@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'staff',
     'crispy_forms',
     'phonenumber_field',
+    'django_cleanup'
 ]
 
 MIDDLEWARE = [
