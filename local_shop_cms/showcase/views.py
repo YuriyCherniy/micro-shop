@@ -5,14 +5,13 @@ from django.shortcuts import render, redirect
 from django.views.generic import (
     ListView,
     DetailView,
-    CreateView,
     UpdateView,
     DeleteView,
     View
 )
 
+from utils import AddPhoneNumberToContextMixin
 from .forms import ItemModelForm
-from .utils import AddPhoneNumberToContextMixin
 from .models import Item
 
 
@@ -24,12 +23,6 @@ class ItemListView(AddPhoneNumberToContextMixin, ListView):
 class ItemDetailView(AddPhoneNumberToContextMixin, DetailView):
     model = Item
 
-
-#class ItemCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
-#    model = Item
-#    fields = ['title', 'description', 'image', 'price']
-#    success_message = 'Товар успешно добавлен'
-#    raise_exception = True
 
 class ItemCreateView(LoginRequiredMixin, View):
     raise_exception = True
@@ -51,9 +44,16 @@ class ItemCreateView(LoginRequiredMixin, View):
 class ItemUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Item
     fields = ['title', 'description', 'image', 'price']
-    template_name_suffix = '_update_form'
     success_message = 'Описание товара успешно отредактировано'
     raise_exception = True
+
+    def post(self, request, *args, **kwargs):
+        form = ItemModelForm(request.POST, request.FILES)
+        if form.is_valid():
+            return super().post(request, *args, **kwargs)
+        return render(
+            request, 'showcase/item_update_form.html', {'form': form}
+        )
 
 
 class ItemDeleteView(LoginRequiredMixin, DeleteView):
