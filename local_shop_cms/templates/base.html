@@ -27,15 +27,7 @@
         <a class="nav-item nav-link active" href="{% url 'item_list_url' %}">Все товары<span
             class="sr-only">(current)</span></a>
         {% if user.is_authenticated %}
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Настройки
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="#">Редактор главной</a>
-            <a class="dropdown-item" href="{% url 'profile_url' user.userprofile.pk %}">Профиль</a>
-          </div>
-        </li>
+        <a class="nav-item nav-link" href="{% url 'profile_url' user.userprofile.pk %}" tabindex="-1" aria-disabled="true">Профиль</a>
         <a class="nav-item nav-link" href="{% url 'item_create_url' %}" tabindex="-1" aria-disabled="true">Добавить товар</a>
         {% block navbuttons %}{% endblock %}
         {% endif %}
