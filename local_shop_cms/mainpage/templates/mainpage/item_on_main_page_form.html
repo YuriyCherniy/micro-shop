@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}
+Добавить товар на главную
+{% endblock %}
+
+{% block create_item_button_disappeared %}{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-6 mx-auto">
+      <form method="POST">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button class="btn btn-outline-primary" type="submit">Сохранить</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
