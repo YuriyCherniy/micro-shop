@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Редактор главной страницы
+{% endblock %}
+
+{% block create_item_button_disappeared %}{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="alert alert-secondary" role="alert">
+    <h4 class="alert-heading">Редактор главной страницы.</h4>
+    <p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so
+      that you can see how spacing within an alert works with this kind of content.</p>
+    <hr>
+    <p class="mb-0"><a href="{% url 'add_item_to_main_page_url' %}" class="alert-link">Добавить новый товар на главную</a></p>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    {% for object in object_list %}
+    <div class="card mx-auto mb-2" style="width: 22rem;">
+      <a href="/items/item-{{ object.item_on_main_page.pk }}"><img src="{{ object.item_on_main_page.image.url }}"
+          class="card-img-top" alt="{{ object.item_on_main_page.title }}"></a>
+      <div class="card-body">
+        <h5 class="card-title">{{ object.item_on_main_page.title }}</h5>
+        <p class="card-text">{{ object.item_on_main_page.description|truncatechars:100 }}</p>
+
+        <div class="row mb-auto">
+          <a href="{% url 'update_item_on_main_page_url' object.pk %}" class="btn btn-outline-primary mx-auto">Изменить позицию</a>
+          <a href="{% url 'delete_item_from_main_page_url' object.pk %}" class="btn btn-outline-danger mx-auto">Удалить</a>
+        </div>
+
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

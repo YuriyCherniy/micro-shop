@@ -4,7 +4,7 @@
 {{ object.title }}
 {% endblock %}
 
-{% block navbuttons %}
+{% block update_delete_buttons %}
 <a class="nav-item nav-link" href="{% url 'item_update_url' object.pk %}" tabindex="-1" aria-disabled="true">Изменить товар</a>
 <a class="nav-item nav-link" href="{% url 'item_delete_url' object.pk %}" tabindex="-1" aria-disabled="true">Удалить товар</a>
 {% endblock %}

@@ -5,7 +5,7 @@ from django.views.generic import UpdateView
 from staff.models import UserProfile
 
 
-class UserProfileUpdatelView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class UserProfileUpdatel(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = UserProfile
     fields = ['phone_number', 'youla', 'avito']
     template_name_suffix = '_update_form'

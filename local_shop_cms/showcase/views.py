@@ -7,7 +7,7 @@ from django.views.generic import (
     DetailView,
     UpdateView,
     DeleteView,
-    View
+    CreateView
 )
 
 from utils import AddPhoneNumberToContextMixin
@@ -15,22 +15,20 @@ from .forms import ItemModelForm
 from .models import Item
 
 
-class ItemListView(AddPhoneNumberToContextMixin, ListView):
+class ItemList(AddPhoneNumberToContextMixin, ListView):
     model = Item
     paginate_by = 9
 
 
-class ItemDetailView(AddPhoneNumberToContextMixin, DetailView):
+class ItemDetail(AddPhoneNumberToContextMixin, DetailView):
     model = Item
 
 
-class ItemCreateView(LoginRequiredMixin, View):
-    raise_exception = True
+class ItemCreate(LoginRequiredMixin, CreateView):
+    model = Item
+    fields = ['title', 'description', 'image', 'price']
     success_message = 'Товар успешно добавлен'
-
-    def get(self, request):
-        form = ItemModelForm()
-        return render(request, 'showcase/item_form.html', {'form': form})
+    raise_exception = True
 
     def post(self, request):
         form = ItemModelForm(request.POST, request.FILES)
@@ -41,13 +39,16 @@ class ItemCreateView(LoginRequiredMixin, View):
         return render(request, 'showcase/item_form.html', {'form': form})
 
 
-class ItemUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class ItemUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Item
     fields = ['title', 'description', 'image', 'price']
     success_message = 'Описание товара успешно отредактировано'
     raise_exception = True
 
     def post(self, request, *args, **kwargs):
+        '''
+        Method redifinition for image format validaitig
+        '''
         form = ItemModelForm(request.POST, request.FILES)
         if form.is_valid():
             return super().post(request, *args, **kwargs)
@@ -56,10 +57,9 @@ class ItemUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         )
 
 
-class ItemDeleteView(LoginRequiredMixin, DeleteView):
+class ItemDelete(LoginRequiredMixin, DeleteView):
     model = Item
     success_url = '/'
-    success_message = 'Товар успешно удалён'
     raise_exception = True
 
     def delete(self, request, *args, **kwargs):
@@ -67,5 +67,5 @@ class ItemDeleteView(LoginRequiredMixin, DeleteView):
         Django messages framework requires to redefine
         delete method to add flash message
         '''
-        messages.success(request, self.success_message)
+        messages.success(request, 'Товар успешно удалён')
         return super().delete(request, *args, **kwargs)

@@ -18,10 +18,14 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+from mainpage.views import MainPageItemList
+
 
 urlpatterns = [
+    path('', MainPageItemList.as_view(), name='main_page_url'),
     path('admin/', admin.site.urls),
-    path('', include('showcase.urls')),
+    path('main-page-editor/', include('mainpage.urls')),
+    path('items/', include('showcase.urls')),
     path('profile/', include('staff.urls'))
 ]
 

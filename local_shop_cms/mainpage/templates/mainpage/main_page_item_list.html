@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if user.is_authenticated and not phone_number %}
+<div class="container">
+  <div class="alert alert-danger" role="alert">
+    Для полноценной работы витрины добвьте номер телефона в <a href="{% url 'profile_url' user.userprofile.pk %}"
+      class="alert-link">профиле</a> администратора. <u>Кпопка "Позвонить" и "WhatsApp" деактивированы.</u>
+  </div>
+</div>
+{% endif %}
+<div class="container">
+  <div class="row">
+    {% for object in object_list %}
+    <div class="card mx-auto mb-2" style="width: 22rem;">
+      <a href="items/item-{{ object.item_on_main_page.pk }}"><img src="{{ object.item_on_main_page.image.url }}" class="card-img-top"
+          alt="{{ object.item_on_main_page.title }}"></a>
+      <div class="card-body">
+        <h5 class="card-title">{{ object.item_on_main_page.title }}</h5>
+        <p class="card-text">{{ object.item_on_main_page.description|truncatechars:100 }}</p>
+
+        <div class="row mb-auto">
+          <a href="items/item-{{ object.item_on_main_page.pk }}" class="btn btn-outline-primary mx-auto">{{ object.item_on_main_page.price }} ₽</a>
+          <a href="tel:{{ phone_number }}"
+            class="btn {% if phone_number %}btn-outline-primary{% else %}btn-outline-danger{% endif %} mx-auto">Позвонить</a>
+          <a href="//wa.me/{{ phone_number }}"
+            class="btn {% if phone_number %}btn-outline-success{% else %}btn-outline-danger{% endif %} mx-auto">WhatsApp</a>
+        </div>
+
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% if is_paginated %}
+  <nav aria-label="Page navigation">
+    <ul class="pagination">
+      <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
+        <a class="page-link"
+          href="?page={% if page_obj.has_previous %}{{ page_obj.previous_page_number }}{% endif %}">Назад</a>
+      </li>
+      {% for num in page_obj.paginator.page_range %}
+      {% if page_obj.number == num %}
+      <li class="page-item active" aria-current="page">
+        <a class="page-link" href="?page={{ num }}">{{ num }} <span class="sr-only">(current)</span></a>
+      </li>
+      {% elif num > page_obj.number|add:-3 and num < page_obj.number|add:3 %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+      </li>
+      {% endif %}
+      {% endfor %}
+      <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
+        <a class="page-link"
+          href="?page={% if page_obj.has_next %}{{ page_obj.next_page_number }}{% endif %}">Вперёд</a>
+      </li>
+    </ul>
+  </nav>
+  {% endif %}
+</div>
+{% endblock %}
