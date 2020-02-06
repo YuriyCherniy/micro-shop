@@ -55,7 +55,7 @@ class MainPageEditorCreate(LoginRequiredMixin, View):
             try:
                 ItemOnMainPage.objects.create(
                     item_on_main_page=form.cleaned_data['item_on_main_page'],
-                    position=form.cleaned_data['position']
+                    position=ItemOnMainPage.objects.count() + 1
                 )
                 messages.success(request, 'Товар успешно добавлен на главную')
                 return redirect('/main-page-editor')
