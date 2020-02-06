@@ -44,6 +44,12 @@ class MainPageEditorCreate(LoginRequiredMixin, View):
     raise_exception = True
 
     def get(self, request):
+        if ItemOnMainPage.objects.count() == 9:
+            messages.warning(
+                request, 'Нельзя добавить на главную больше 9 товаров'
+            )
+            return redirect('/main-page-editor')
+
         form = ItemOnMainPageCreateForm()
         return render(
             request, 'mainpage/item_on_main_page_form.html', {'form': form}
