@@ -33,7 +33,7 @@ class MainPageEditorDelete(LoginRequiredMixin, DeleteView):
 
     def delete(self, request, *args, **kwargs):
         '''
-        change items position after deleting one
+        Change items position after deleting one
         and add flash message
         '''
 
