@@ -33,9 +33,17 @@ class MainPageEditorDelete(LoginRequiredMixin, DeleteView):
 
     def delete(self, request, *args, **kwargs):
         '''
-        Django messages framework requires to redefine
-        delete method to add flash message
+        change items position after deleting one
+        and add flash message
         '''
+
+        repositioned_items = ItemOnMainPage.objects.filter(
+            position__gt=ItemOnMainPage.objects.get(pk=kwargs['pk']).position
+        )
+        for item in repositioned_items:
+            item.position -= 1
+            item.save()
+
         messages.success(request, 'Товар успешно удалён с главной')
         return super().delete(request, *args, **kwargs)
 
