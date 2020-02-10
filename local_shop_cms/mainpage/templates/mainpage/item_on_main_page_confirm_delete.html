@@ -12,7 +12,7 @@
             <h2>Удалить товар - {{ object }}?</h2>
         </fieldset>
         <button class="btn btn-danger" type="submit">Да</button>
-        <a class="btn btn-secondary" href="{% url 'item_detail_url' object.pk %}">Отменить</a>
+        <a class="btn btn-secondary" href="{% url 'main_page_editor_url' %}">Отменить</a>
     </form>
 </div>
 {% endblock %}
