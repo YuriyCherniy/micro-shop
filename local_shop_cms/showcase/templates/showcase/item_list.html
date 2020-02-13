@@ -14,11 +14,11 @@
     <div class="card mx-auto mb-2" style="width: 22rem;">
       <a href="item-{{ object.pk }}"><img src="{{ object.image.url }}" class="card-img-top"
           alt="{{ object.title }}"></a>
-      <div class="card-body">
+      <div class="card-body" style="display: flex; flex-direction: column;">
         <h5 class="card-title">{{ object.title }}</h5>
         <p class="card-text">{{ object.description|truncatechars:100 }}</p>
 
-        <div class="row mb-auto">
+        <div class="row mt-auto">
           <a href="item-{{ object.pk }}" class="btn btn-outline-primary mx-auto">{{ object.price }} ₽</a>
           <a href="tel:{{ phone_number }}"
             class="btn {% if phone_number %}btn-outline-primary{% else %}btn-outline-danger{% endif %} mx-auto">Позвонить</a>
