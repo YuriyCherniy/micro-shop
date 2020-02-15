@@ -49,6 +49,13 @@ class ItemUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         '''
         Method redifinition for image format validaitig
         '''
+
+        # add a default image to form if the user has not made a choice
+        try:
+            request.FILES['image']
+        except KeyError:
+            request.FILES['image'] = Item.objects.get(pk=kwargs['pk']).image
+
         form = ItemModelForm(request.POST, request.FILES)
         if form.is_valid():
             return super().post(request, *args, **kwargs)
