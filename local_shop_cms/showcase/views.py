@@ -48,6 +48,7 @@ class ItemUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     def post(self, request, *args, **kwargs):
         '''
         Method redifinition for image format validaitig
+        and adding a default image to form
         '''
 
         # add a default image to form if the user has not made a choice
