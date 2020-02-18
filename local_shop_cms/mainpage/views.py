@@ -21,9 +21,10 @@ class MainPageItemList(AddPhoneNumberToContextMixin, ListView):
     template_name = 'mainpage/main_page_item_list.html'
 
 
-class MainPageEditorList(ListView):
+class MainPageEditorList(LoginRequiredMixin, ListView):
     model = ItemOnMainPage
     template_name = 'mainpage/main_page_item_editor_list.html'
+    raise_exception = True
 
 
 class MainPageEditorDelete(LoginRequiredMixin, DeleteView):
