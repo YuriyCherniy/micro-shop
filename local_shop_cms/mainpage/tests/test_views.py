@@ -45,7 +45,7 @@ class TestViews(TestCase):
         )
         self.assertEquals(response.status_code, 403)
 
-# Status code 200 tests
+# Status code 200 and 302 tests
     def test_main_page_item_list_view_status_code_200(self):
         response = self.c.get(reverse('main_page_url'))
         self.assertEquals(response.status_code, 200)
@@ -63,6 +63,20 @@ class TestViews(TestCase):
         )
         response = self.c.get(reverse('add_item_to_main_page_url'))
         self.assertEquals(response.status_code, 200)
+
+    def test_main_page_editor_create_view_status_code_302(self):
+        self.c.post(
+            '/admin/login/', {'username': 'test', 'password': '0000'}
+        )
+        for i in range(8):
+            Item.objects.create(
+                title='test', description='test', image='/test.jpg', price=100
+            )
+            ItemOnMainPage.objects.create(
+                item_on_main_page_id=(i + 2), position=(i + 2)
+            )
+        response = self.c.get(reverse('add_item_to_main_page_url'))
+        self.assertEquals(response.status_code, 302)
 
     def test_main_page_editor_update_view_status_code_200(self):
         self.c.post(
@@ -101,6 +115,20 @@ class TestViews(TestCase):
         response = self.c.get(reverse('add_item_to_main_page_url'))
         self.assertTemplateUsed(response, 'mainpage/item_on_main_page_form.html')
 
+    def test_main_page_editor_create_view_redirect_template_used(self):
+        self.c.post(
+            '/admin/login/', {'username': 'test', 'password': '0000'}
+        )
+        for i in range(8):
+            Item.objects.create(
+                title='test', description='test', image='/test.jpg', price=100
+            )
+            ItemOnMainPage.objects.create(
+                item_on_main_page_id=(i + 2), position=(i + 2)
+            )
+        response = self.c.get(reverse('add_item_to_main_page_url'), follow=True)
+        self.assertTemplateUsed(response, 'mainpage/main_page_item_editor_list.html')
+
     def test_main_page_editor_update_view_template_used(self):
         self.c.post(
             '/admin/login/', {'username': 'test', 'password': '0000'}
@@ -118,3 +146,4 @@ class TestViews(TestCase):
             reverse('delete_item_from_main_page_url', args=[1]), follow=True
         )
         self.assertTemplateUsed(response, 'mainpage/main_page_item_editor_list.html')
+
