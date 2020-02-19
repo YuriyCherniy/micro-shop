@@ -28,5 +28,13 @@ class TestViews(TestCase):
         self.assertEquals(response.status_code, 403)
 
     def test_main_page_editor_update_view_status_code_403(self):
-        response = self.c.get(reverse('update_item_on_main_page_url', args=[1]))
+        response = self.c.get(
+            reverse('update_item_on_main_page_url', args=[1])
+        )
+        self.assertEquals(response.status_code, 403)
+
+    def test_main_page_editor_delete_view_status_code_403(self):
+        response = self.c.delete(
+            reverse('delete_item_from_main_page_url', args=[1])
+        )
         self.assertEquals(response.status_code, 403)
