@@ -8,7 +8,7 @@ from showcase.models import Item
 
 class TestViews(TestCase):
     def setUp(self):
-        self.client = Client()
+        self.c = Client()
         self.item = Item.objects.create(
             title='some title',
             description='some description',
@@ -23,27 +23,27 @@ class TestViews(TestCase):
         )
 
     def test_item_delete_view_status_code_403(self):
-        response = self.client.get(reverse('item_delete_url', args=[1]))
+        response = self.c.get(reverse('item_delete_url', args=[1]))
         self.assertEquals(response.status_code, 403)
 
     def test_item_create_view_status_code_403(self):
-        response = self.client.get(reverse('item_create_url'))
+        response = self.c.get(reverse('item_create_url'))
         self.assertEquals(response.status_code, 403)
 
     def test_item_update_view_status_code_403(self):
-        response = self.client.get(reverse('item_update_url', args=[1]))
+        response = self.c.get(reverse('item_update_url', args=[1]))
         self.assertEquals(response.status_code, 403)
 
     def test_item_delete_view_status_code_302(self):
-        self.client.post(
+        self.c.post(
             '/admin/login/', {'username': 'test', 'password': '0000'}
         )
-        response = self.client.delete(reverse('item_delete_url', args=[1]))
+        response = self.c.delete(reverse('item_delete_url', args=[1]))
         self.assertEquals(response.status_code, 302)
-        response = self.client.get(reverse('item_delete_url', args=[1]))
+        response = self.c.get(reverse('item_delete_url', args=[1]))
 
     def test_item_list_view_add_phone_number_to_context_mixin(self):
-        response = self.client.get(reverse('item_list_url'))
+        response = self.c.get(reverse('item_list_url'))
         self.assertEquals(
             response.context['phone_number'], self.profile.phone_number
         )

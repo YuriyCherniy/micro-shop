@@ -4,8 +4,8 @@ from django.urls import reverse
 
 class TestViews(SimpleTestCase):
     def setUp(self):
-        self.client = Client()
+        self.c = Client()
 
     def test_user_profile_detail_view_status_code_403(self):
-        response = self.client.get(reverse('profile_url', args=[1]))
+        response = self.c.get(reverse('profile_url', args=[1]))
         self.assertEquals(response.status_code, 403)

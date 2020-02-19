@@ -7,7 +7,6 @@ from staff.models import UserProfile
 
 class TestModels(TestCase):
     def setUp(self):
-        self.client = Client()
         self.user = User.objects.create_superuser(
             username='test', email='test@mail.ru', password='0000'
         )
