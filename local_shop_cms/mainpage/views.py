@@ -58,7 +58,7 @@ class MainPageEditorCreate(LoginRequiredMixin, View):
             messages.warning(
                 request, 'Нельзя добавить на главную больше 9 товаров'
             )
-            return redirect('/main-page-editor')
+            return redirect('main_page_editor_url')
 
         form = ItemOnMainPageCreateForm()
         return render(
@@ -74,10 +74,10 @@ class MainPageEditorCreate(LoginRequiredMixin, View):
                     position=ItemOnMainPage.objects.count() + 1
                 )
                 messages.success(request, 'Товар успешно добавлен на главную')
-                return redirect('/main-page-editor')
+                return redirect('main_page_editor_url')
             except IntegrityError:
                 messages.warning(request, 'Этот товар уже есть на главной')
-                return redirect('/main-page-editor')
+                return redirect('main_page_editor_url')
         else:
             messages.warning(request, 'Что-то пошло не так!')
             return redirect(request, '/')
@@ -113,7 +113,7 @@ class MainPageEditorUpdate(LoginRequiredMixin, View):
                 position=form.cleaned_data['position']
             )
             messages.success(request, 'Товар успешно отредактирован')
-            return redirect('/main-page-editor')
+            return redirect('main_page_editor_url')
         else:
             messages.warning(request, 'Что-то пошло не так!')
             return redirect(request, '/')
