@@ -31,6 +31,7 @@ class MainPageEditorDelete(LoginRequiredMixin, DeleteView):
     model = ItemOnMainPage
     success_url = '/main-page-editor'
     template_name = 'mainpage/item_on_main_page_confirm_delete.html'
+    raise_exception = True
 
     def delete(self, request, *args, **kwargs):
         '''
