@@ -151,7 +151,7 @@ class TestViews(TestCase):
         self.assertTemplateUsed(
             response, 'mainpage/main_page_item_editor_list.html')
 
-# some tests
+# more tests
     def test_item_reposition_after_deleting(self):
         self.c.post(
             '/admin/login/', {'username': 'test', 'password': '0000'}
