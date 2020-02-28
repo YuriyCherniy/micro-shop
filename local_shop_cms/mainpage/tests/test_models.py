@@ -20,11 +20,10 @@ class TestItemOnMainPageModel(TestCase):
         )
 
     def test__str__method(self):
-        self.assertEquals(
-            repr(self.on_main_page), '<ItemOnMainPage: Test title>'
-        )
+        self.assertEquals(self.on_main_page.__str__(), 'Test title')
 
     def test_get_absolute_url_method(self):
         self.assertEquals(
-            self.on_main_page.get_absolute_url(), '/items/item-1/'
+            self.on_main_page.get_absolute_url(),
+            reverse('item_detail_url', args=[self.on_main_page.pk])
         )
