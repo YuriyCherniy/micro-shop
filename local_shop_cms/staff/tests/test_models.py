@@ -18,7 +18,7 @@ class TestModels(TestCase):
             f'Пользователь: {self.user.username}'
         )
 
-    def test_userprofile_get_absolute_url(self):
+    def test_userprofile_get_absolute_url_method(self):
         self.assertEquals(
             self.user.userprofile.get_absolute_url(),
             reverse('profile_url', args=[self.user.userprofile.pk])
