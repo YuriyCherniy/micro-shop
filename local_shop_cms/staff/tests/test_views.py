@@ -27,3 +27,10 @@ class TestViews(TestCase):
         )
         response = self.c.get(reverse('profile_url', args=[1]))
         self.assertEquals(response.status_code, 200)
+
+    def test_userprofile_form_template_used(self):
+        self.c.post(
+            '/admin/login/', {'username': 'test', 'password': '0000'}
+        )
+        response = self.c.get(reverse('profile_url', args=[1]))
+        self.assertTemplateUsed(response, 'staff/userprofile_form.html')
