@@ -18,6 +18,7 @@ def add_items_to_db(item_amount):
 
 
 class TestViews(TestCase):
+
     @classmethod
     def setUpTestData(cls):
         User.objects.create_superuser(
@@ -159,3 +160,13 @@ class TestViews(TestCase):
         add_items_to_db(2)
         self.c.delete(reverse('delete_item_from_main_page_url', args=[1]))
         self.assertEquals(ItemOnMainPage.objects.get(pk=3).position, 2)
+
+    def test_main_page_editor_create_view_status_code_200_POST(self):
+        self.c.post(
+            '/admin/login/', {'username': 'test', 'password': '0000'}
+        )
+        response = self.c.post(
+            reverse('add_item_to_main_page_url'),
+            {'position': 1}
+        )
+        self.assertEquals(response.status_code, 200)
