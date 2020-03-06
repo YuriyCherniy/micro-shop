@@ -13,6 +13,7 @@ from django.views.generic import (
 from utils import AddPhoneNumberToContextMixin
 from .forms import ItemModelForm
 from .models import Item
+from mainpage.models import ItemOnMainPage
 
 
 class ItemList(AddPhoneNumberToContextMixin, ListView):
@@ -72,8 +73,19 @@ class ItemDelete(LoginRequiredMixin, DeleteView):
 
     def delete(self, request, *args, **kwargs):
         '''
-        Django messages framework requires to redefine
-        delete method to add flash message
+        If the item is presented on the main page, reorder
+        the position of the dependent items on main page
+        and add flash message
         '''
+
+        item = Item.objects.get(pk=kwargs['pk'])
+        if hasattr(item, 'itemonmainpage'):
+            repositioned_items = ItemOnMainPage.objects.filter(
+                position__gt=item.itemonmainpage.position
+            )
+            for item in repositioned_items:
+                item.position -= 1
+                item.save()
+
         messages.success(request, 'Товар успешно удалён')
         return super().delete(request, *args, **kwargs)
