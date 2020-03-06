@@ -4,23 +4,36 @@ from django.urls import reverse
 
 from staff.models import UserProfile
 from showcase.models import Item
+from mainpage.models import ItemOnMainPage
+
+
+def add_items_to_db_on_main_page(item_amount):
+    for i in range(item_amount):
+        Item.objects.create(
+            title='test', description='test', image='/test.jpg', price=100
+        )
+        ItemOnMainPage.objects.create(
+            item_on_main_page_id=(i + 2), position=(i + 2)
+        )
 
 
 class TestViews(TestCase):
-    def setUp(self):
-        self.c = Client()
-        self.item = Item.objects.create(
-            title='some title',
-            description='some description',
-            image='1.jpg',
-            price=100
-        )
-        self.user = User.objects.create_superuser(
+
+    @classmethod
+    def setUpTestData(cls):
+        User.objects.create_superuser(
             username='test', email='test@mail.ru', password='0000'
         )
-        self.profile = UserProfile.objects.create(
-            user_id=1, phone_number='+79615672273'
+        UserProfile.objects.create(
+            user_id=1, phone_number='+70000000000'
         )
+        Item.objects.create(
+            title='test', description='test', image='/test.jpg', price=100
+        )
+        ItemOnMainPage.objects.create(item_on_main_page_id=1, position=1)
+
+    def setUp(self):
+        self.c = Client()
 
     def test_item_delete_view_status_code_403(self):
         response = self.c.get(reverse('item_delete_url', args=[1]))
@@ -43,7 +56,16 @@ class TestViews(TestCase):
         response = self.c.get(reverse('item_delete_url', args=[1]))
 
     def test_item_list_view_add_phone_number_to_context_mixin(self):
+        phone_number = User.objects.get(pk=1).userprofile.phone_number
         response = self.c.get(reverse('item_list_url'))
         self.assertEquals(
-            response.context['phone_number'], self.profile.phone_number
+            response.context['phone_number'], phone_number
         )
+
+    def test_item_reposition_on_main_page_after_deleting(self):
+        self.c.post(
+            '/admin/login/', {'username': 'test', 'password': '0000'}
+        )
+        add_items_to_db_on_main_page(2)
+        self.c.delete(reverse('item_delete_url', args=[1]))
+        self.assertEquals(ItemOnMainPage.objects.get(pk=3).position, 2)

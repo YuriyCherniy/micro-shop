@@ -1,5 +1,5 @@
 from django.test import TestCase, Client
-from django.urls import reverse, resolve
+from django.urls import reverse
 from django.contrib.auth.models import User
 
 from staff.models import UserProfile
@@ -7,7 +7,7 @@ from mainpage.models import ItemOnMainPage
 from showcase.models import Item
 
 
-def add_items_to_db(item_amount):
+def add_items_to_db_on_main_page(item_amount):
     for i in range(item_amount):
         Item.objects.create(
             title='test', description='test', image='/test.jpg', price=100
@@ -79,7 +79,7 @@ class TestViews(TestCase):
         self.c.post(
             '/admin/login/', {'username': 'test', 'password': '0000'}
         )
-        add_items_to_db(8)
+        add_items_to_db_on_main_page(8)
         response = self.c.get(reverse('add_item_to_main_page_url'))
         self.assertEquals(response.status_code, 302)
 
@@ -126,7 +126,7 @@ class TestViews(TestCase):
         self.c.post(
             '/admin/login/', {'username': 'test', 'password': '0000'}
         )
-        add_items_to_db(8)
+        add_items_to_db_on_main_page(8)
         response = self.c.get(
             reverse('add_item_to_main_page_url'), follow=True)
         self.assertTemplateUsed(
@@ -157,16 +157,7 @@ class TestViews(TestCase):
         self.c.post(
             '/admin/login/', {'username': 'test', 'password': '0000'}
         )
-        add_items_to_db(2)
+        add_items_to_db_on_main_page(2)
         self.c.delete(reverse('delete_item_from_main_page_url', args=[1]))
         self.assertEquals(ItemOnMainPage.objects.get(pk=3).position, 2)
 
-    def test_main_page_editor_create_view_status_code_200_POST(self):
-        self.c.post(
-            '/admin/login/', {'username': 'test', 'password': '0000'}
-        )
-        response = self.c.post(
-            reverse('add_item_to_main_page_url'),
-            {'position': 1}
-        )
-        self.assertEquals(response.status_code, 200)
