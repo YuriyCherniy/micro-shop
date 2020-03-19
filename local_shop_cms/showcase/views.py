@@ -27,7 +27,7 @@ class ItemDetail(AddPhoneNumberToContextMixin, DetailView):
 
 class ItemCreate(LoginRequiredMixin, CreateView):
     model = Item
-    fields = ['title', 'description', 'image', 'price']
+    fields = ['title', 'description', 'image', 'price', 'category']
     success_message = 'Товар успешно добавлен'
     raise_exception = True
 
@@ -42,7 +42,7 @@ class ItemCreate(LoginRequiredMixin, CreateView):
 
 class ItemUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Item
-    fields = ['title', 'description', 'image', 'price']
+    fields = ['title', 'description', 'image', 'price', 'category']
     success_message = 'Описание товара успешно отредактировано'
     raise_exception = True
 

@@ -2,12 +2,21 @@ from django.db import models
 from django.shortcuts import reverse
 from django.core.validators import MinLengthValidator
 
+from category_manager.models import Category
+
 
 class Item(models.Model):
     class Meta:
         verbose_name = 'товар'
         verbose_name_plural = 'товары'
         ordering = ['-pub_date']
+
+    category = models.ForeignKey(
+        Category, on_delete=models.SET_NULL,
+        verbose_name='Категория товара',
+        null=True,
+        blank=True
+    )
 
     title = models.CharField(
         max_length=20,

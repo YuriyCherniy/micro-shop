@@ -26,7 +26,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('main-page-editor/', include('mainpage.urls')),
     path('items/', include('showcase.urls')),
-    path('profile/', include('staff.urls'))
+    path('profile/', include('staff.urls')),
+    path('category-manager/', include('category_manager.urls'))
 ]
 
 

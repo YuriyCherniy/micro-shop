@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Удалить {{ item }} из категории?
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <form method="POST">{% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Это действие приведёт к удалению товара из категории!</legend>
+            <h2>Удалить {{ item }} из категории?</h2>
+        </fieldset>
+        <button class="btn btn-danger" type="submit">Да</button>
+        <a class="btn btn-secondary" href="{% url 'category_detail_url' item.category.pk %}">Отменить</a>
+    </form>
+</div>
+{% endblock %}

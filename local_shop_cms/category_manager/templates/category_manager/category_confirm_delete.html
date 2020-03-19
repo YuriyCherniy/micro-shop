@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Удалить категорию {{ object.title }}?
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <form method="POST">{% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Это действие приведёт к удалению категории!</legend>
+            <h2>Удалить категорию - {{ object }}?</h2>
+        </fieldset>
+        <button class="btn btn-danger" type="submit">Да</button>
+        <a class="btn btn-secondary" href="{% url 'category_list_url' %}">Отменить</a>
+    </form>
+</div>
+{% endblock %}

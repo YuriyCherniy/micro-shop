@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Редактор категорий
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+  <div class="alert alert-secondary" role="alert">
+    <h4 class="alert-heading">Редактор категорий.</h4>
+    <p>Для просмотра и редактирования содержимого нажмите на название категории. Для редактирования названия и удаления категории используйте соответствующие кнопки.</p>
+    <hr>
+    <p class="mb-0"><a href="{% url 'category_create_url' %}" class="alert-link">Добавить новую категорию</a></p>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row mx-auto">
+    {% for object in object_list %}
+    <div class="col-lg-4">
+      <h5><a href="{% url 'category_detail_url' object.pk %}">{{ object.title }}</a></h5>
+    </div>
+    <div class="col-lg-5">
+      <h5>содержит товаров - {{ object.item_set.count }}</h5>
+    </div>
+    <div class="col-lg-3">
+      <div class="row mx-auto">
+        <a href="{% url 'category_update_url' object.pk %}" class="btn btn-outline-primary btn-sm mr-2">Переименовать</a>
+        <a href="{% url 'category_delete_url' object.pk %}" class="btn btn-outline-danger btn-sm">Удалить</a>
+      </div>
+    </div>
+    <div class="col-12">
+      <hr>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
