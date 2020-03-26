@@ -7,7 +7,7 @@ from .models import Item
 class ItemModelForm(ModelForm):
     class Meta:
         model = Item
-        fields = ['title', 'description', 'image', 'price']
+        fields = ['title', 'description', 'image', 'price', 'category']
 
     def clean_image(self):
         '''
