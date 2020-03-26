@@ -17,7 +17,7 @@
       <div class="card-body" style="display: flex; flex-direction: column;">
         <h5 class="card-title">{{ object.title }}</h5>
         <p class="card-text">{{ object.description|truncatechars:100 }}</p>
-
+  
         <div class="row mt-auto">
           <a href="item-{{ object.pk }}" class="btn btn-outline-primary mx-auto">{{ object.price }} ₽</a>
           <a href="tel:{{ phone_number }}"
@@ -25,7 +25,7 @@
           <a href="//wa.me/{{ phone_number }}"
             class="btn {% if phone_number %}btn-outline-success{% else %}btn-outline-danger{% endif %} mx-auto">WhatsApp</a>
         </div>
-
+  
       </div>
     </div>
     {% endfor %}

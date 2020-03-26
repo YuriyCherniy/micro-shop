@@ -22,11 +22,11 @@
     <div class="card mx-auto mb-2" style="width: 22rem;">
       <a href="/items/item-{{ object.item_on_main_page.pk }}"><img src="{{ object.item_on_main_page.image.url }}"
           class="card-img-top" alt="{{ object.item_on_main_page.title }}"></a>
-      <div class="card-body">
+      <div class="card-body" style="display: flex; flex-direction: column;">
         <h5 class="card-title">{{ object.item_on_main_page.title }}</h5>
         <p class="card-text">{{ object.item_on_main_page.description|truncatechars:100 }}</p>
 
-        <div class="row mb-auto">
+        <div class="row mt-auto">
           <a href="{% url 'update_item_on_main_page_url' object.pk %}" class="btn btn-outline-primary mx-auto">Изменить позицию</a>
           <a href="{% url 'delete_item_from_main_page_url' object.pk %}" class="btn btn-outline-danger mx-auto">Удалить</a>
         </div>
