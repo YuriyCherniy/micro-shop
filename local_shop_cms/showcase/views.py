@@ -44,6 +44,7 @@ class ItemUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Item
     fields = ['title', 'description', 'image', 'price', 'category']
     success_message = 'Описание товара успешно отредактировано'
+    template_name = 'showcase/item_update_form.html'
     raise_exception = True
 
     def post(self, request, *args, **kwargs):
@@ -61,8 +62,10 @@ class ItemUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         form = ItemModelForm(request.POST, request.FILES)
         if form.is_valid():
             return super().post(request, *args, **kwargs)
+
+        obj = Item.objects.get(pk=kwargs['pk'])
         return render(
-            request, 'showcase/item_update_form.html', {'form': form}
+            request, 'showcase/item_update_form.html', {'form': form, 'object': obj}
         )
 
 

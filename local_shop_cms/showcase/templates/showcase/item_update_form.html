@@ -12,7 +12,28 @@
     <div class="col-6 mx-auto">
       <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form|crispy }}
+        {{ form.title|as_crispy_field }}
+        {{ form.description|as_crispy_field }}
+
+        <!--
+          This block removes 'required' attribute from <input> tag on
+          the ImageField. If the user has not made a choice of a picture
+          the form remains valid.
+        -->
+        <div id="div_id_image" class="form-group">
+          <label for="id_image" class=" requiredField">
+            Изображение<span class="asteriskField">*</span>
+          </label>
+          <div class="">
+            На данный момент: <a
+              href="{{ object.image.url }}">{{ object.image }}</a><br>
+            Изменить:
+            <input type="file" name="image" accept="image/*" class="clearablefileinput form-control" id="id_image">
+          </div>
+        </div>
+
+        {{ form.price|as_crispy_field }}
+        {{ form.category|as_crispy_field }}
         <button class="btn btn-outline-primary" type="submit">Сохранить</button>
       </form>
     </div>
