@@ -1,4 +1,5 @@
 {% load tags %}
+{% load static %}
 
 <!doctype html>
 <html lang="ru">
@@ -36,7 +37,7 @@
     .nav-item,
     .nav-drop,
     .navbar-brand {
-      color: #ffff00 !important
+      color: #ffffff !important
     }
   </style>
 </head>
@@ -110,17 +111,20 @@
   </div>
 
 
-  <footer class="footer " style="background: #30d5c8">
+  <footer class="footer " style="background: #F6F6E8">
     <div class="container">
       <div class="d-sm-flex justify-content-between">
-        <div class="footer-left my-lg-3">
-          text
+        <div class="footer-left my-3">
+          <div class="row">
+            <img src="{% static 'phone.svg' %}" class="mx-2">
+            <h4 class="my-auto">{{ phone_number }}</h4>
+          </div>
         </div>
-        <div class="footer-right my-lg-3">
-          <span>text</span>
-          <span>text</span>
-          <span>text</span>
-          <span>text</span>
+        <div class="footer-right my-3">
+          <a href="#"><img src="{% static 'instagram1.svg' %}" class="mr-3"></a>
+          <a href="#"><img src="{% static 'vk.svg' %}" class="mr-3"></a>
+          <a href="#"><img src="{% static 'facebook2.svg' %}" class="mr-3"></a>
+          <a href="#"><img src="{% static 'twitter.svg' %}" class="mr-3"></a>
         </div>
       </div>
     </div>
