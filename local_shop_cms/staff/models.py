@@ -18,14 +18,38 @@ class UserProfile(models.Model):
         verbose_name='номер телефона',
         help_text='Без номера телефона кнопки "Позвонить" и "WhatsApp" не активны.'
     )
-    youla = models.URLField(
+    instagram = models.URLField(
         blank=True,
-        verbose_name='профиль на Юле',
+        verbose_name='профиль Instagram',
         help_text='Оставьте поле пустым, чтобы не отображать ссылку в футере.'
     )
-    avito = models.URLField(
+    vk = models.URLField(
         blank=True,
-        verbose_name='профиль на Avito',
+        verbose_name='профиль VK',
+        help_text='Оставьте поле пустым, чтобы не отображать ссылку в футере.'
+    )
+
+    facebook = models.URLField(
+        blank=True,
+        verbose_name='профиль Facebook',
+        help_text='Оставьте поле пустым, чтобы не отображать ссылку в футере.'
+    )
+
+    twitter = models.URLField(
+        blank=True,
+        verbose_name='профиль Twitter',
+        help_text='Оставьте поле пустым, чтобы не отображать ссылку в футере.'
+    )
+
+    telegram = models.URLField(
+        blank=True,
+        verbose_name='профиль Telegram',
+        help_text='Оставьте поле пустым, чтобы не отображать ссылку в футере.'
+    )
+
+    whatsapp = models.URLField(
+        blank=True,
+        verbose_name='профиль WhatsApp',
         help_text='Оставьте поле пустым, чтобы не отображать ссылку в футере.'
     )
 

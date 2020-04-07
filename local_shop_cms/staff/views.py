@@ -7,6 +7,9 @@ from staff.models import UserProfile
 
 class UserProfileUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = UserProfile
-    fields = ['phone_number', 'youla', 'avito']
+    fields = [
+        'phone_number', 'instagram', 'vk',
+        'facebook', 'twitter', 'telegram', 'whatsapp'
+    ]
     success_message = 'Данные обновлены'
     raise_exception = True

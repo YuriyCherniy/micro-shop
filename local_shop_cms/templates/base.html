@@ -1,4 +1,4 @@
-{% load tags %}
+{% load categories_tags social_links_tags %}
 {% load static %}
 
 <!doctype html>
@@ -112,19 +112,39 @@
 
 
   <footer class="footer " style="background: #F6F6E8">
+    {% get_social_links as social_links %}
     <div class="container">
       <div class="d-sm-flex justify-content-between">
         <div class="footer-left my-3">
           <div class="row">
             <img src="{% static 'phone.svg' %}" class="mx-2">
-            <h4 class="my-auto">{{ phone_number }}</h4>
+            <h4 class="my-auto">{{ social_links.phone_number }}</h4>
           </div>
         </div>
         <div class="footer-right my-3">
-          <a href="#"><img src="{% static 'instagram1.svg' %}" class="mr-3"></a>
-          <a href="#"><img src="{% static 'vk.svg' %}" class="mr-3"></a>
-          <a href="#"><img src="{% static 'facebook2.svg' %}" class="mr-3"></a>
-          <a href="#"><img src="{% static 'twitter.svg' %}" class="mr-3"></a>
+          {% if social_links.instagram %}
+          <a href="{{ social_links.instagram }}"><img src="{% static 'instagram1.svg' %}" class="mr-3"></a>
+          {% endif %}
+
+          {% if social_links.vk %}
+          <a href="{{ social_links.vk }}"><img src="{% static 'vk.svg' %}" class="mr-3"></a>
+          {% endif %}
+
+          {% if social_links.facebook %}
+          <a href="{{ social_links.facebook }}"><img src="{% static 'facebook2.svg' %}" class="mr-3"></a>
+          {% endif %}
+
+          {% if social_links.twitter %}
+          <a href="{{ social_links.twitter }}"><img src="{% static 'twitter.svg' %}" class="mr-3"></a>
+          {% endif %}
+
+          {% if social_links.telegram %}
+          <a href="{{ social_links.telegram }}"><img src="{% static 'telegram.svg' %}" class="mr-3"></a>
+          {% endif %}
+
+          {% if social_links.whatsapp %}
+          <a href="{{ social_links.whatsapp }}"><img src="{% static 'whatsapp.svg' %}" class="mr-3"></a>
+          {% endif %}
         </div>
       </div>
     </div>
