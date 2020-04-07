@@ -55,13 +55,6 @@ class TestViews(TestCase):
         self.assertEquals(response.status_code, 302)
         response = self.c.get(reverse('item_delete_url', args=[1]))
 
-    def test_item_list_view_add_phone_number_to_context_mixin(self):
-        phone_number = User.objects.get(pk=1).userprofile.phone_number
-        response = self.c.get(reverse('item_list_url'))
-        self.assertEquals(
-            response.context['phone_number'], phone_number
-        )
-
     def test_item_reposition_on_main_page_after_deleting(self):
         self.c.post(
             '/admin/login/', {'username': 'test', 'password': '0000'}
