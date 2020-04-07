@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-{% if user.is_authenticated and not phone_number %}
+{% if user.is_authenticated and not social_links.phone_number %}
 <div class="container">
   <div class="alert alert-danger" role="alert">
     Для полноценной работы витрины добвьте номер телефона в <a href="{% url 'profile_url' user.userprofile.pk %}"
@@ -20,10 +20,10 @@
   
         <div class="row mt-auto">
           <a href="item-{{ object.pk }}" class="btn btn-outline-primary mx-auto">{{ object.price }} ₽</a>
-          <a href="tel:{{ phone_number }}"
-            class="btn {% if phone_number %}btn-outline-primary{% else %}btn-outline-danger{% endif %} mx-auto">Позвонить</a>
-          <a href="//wa.me/{{ phone_number }}"
-            class="btn {% if phone_number %}btn-outline-success{% else %}btn-outline-danger{% endif %} mx-auto">WhatsApp</a>
+          <a href="tel:{{ social_links.phone_number }}"
+            class="btn {% if social_links.phone_number %}btn-outline-primary{% else %}btn-outline-danger{% endif %} mx-auto">Позвонить</a>
+          <a href="//wa.me/{{ social_links.phone_number }}"
+            class="btn {% if social_links.phone_number %}btn-outline-success{% else %}btn-outline-danger{% endif %} mx-auto">WhatsApp</a>
         </div>
   
       </div>

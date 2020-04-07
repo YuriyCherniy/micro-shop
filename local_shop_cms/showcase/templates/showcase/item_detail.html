@@ -19,11 +19,11 @@
         <img src="{{ object.image.url }}" class="card-img-top" alt="...">
         <div class="alert alert-info mt-2" role="alert">
           <h5 class="alert-heading">Цена {{ object.price }} ₽</h5>
-          {% if phone_number %}
+          {% if social_links.phone_number %}
           <hr>
           <p class="mb-0">
-            <a href="tel:{{ phone_number }}" class="btn btn-outline-primary mx-2">Позвонить</a>
-            <a href="//wa.me/{{ phone_number }}" class="btn btn-outline-success mx-2">WhatsApp</a>
+            <a href="tel:{{ social_links.phone_number }}" class="btn btn-outline-primary mx-2">Позвонить</a>
+            <a href="//wa.me/{{ social_links.phone_number }}" class="btn btn-outline-success mx-2">WhatsApp</a>
           </p>
           {% endif %}
         </div>

@@ -10,18 +10,17 @@ from django.views.generic import (
     CreateView
 )
 
-from utils import AddPhoneNumberToContextMixin
 from .forms import ItemModelForm
 from .models import Item
 from mainpage.models import ItemOnMainPage
 
 
-class ItemList(AddPhoneNumberToContextMixin, ListView):
+class ItemList(ListView):
     model = Item
     paginate_by = 9
 
 
-class ItemDetail(AddPhoneNumberToContextMixin, DetailView):
+class ItemDetail(DetailView):
     model = Item
 
 

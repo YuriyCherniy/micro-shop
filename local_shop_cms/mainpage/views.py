@@ -8,7 +8,6 @@ from django.views.generic import (
     DeleteView
 )
 
-from utils import AddPhoneNumberToContextMixin
 from .models import ItemOnMainPage
 from .forms import (
     ItemOnMainPageCreateForm,
@@ -16,7 +15,7 @@ from .forms import (
 )
 
 
-class MainPageItemList(AddPhoneNumberToContextMixin, ListView):
+class MainPageItemList(ListView):
     model = ItemOnMainPage
     template_name = 'mainpage/main_page_item_list.html'
 

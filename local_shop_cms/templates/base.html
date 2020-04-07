@@ -1,5 +1,6 @@
 {% load categories_tags social_links_tags %}
 {% load static %}
+{% get_social_links as social_links %}
 
 <!doctype html>
 <html lang="ru">
@@ -112,7 +113,6 @@
 
 
   <footer class="footer " style="background: #F6F6E8">
-    {% get_social_links as social_links %}
     <div class="container">
       <div class="d-sm-flex justify-content-between">
         <div class="footer-left my-3">
