@@ -9,6 +9,19 @@
 {% block content %}
 <div class="container">
   <h1 class="text-center">Товары в категории "{{ object }}"</h1>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-6 mx-auto">
+        <form method="POST" action="{% url 'add_item_to_category_url' object.pk %}">
+          {% csrf_token %}
+          {{ form|crispy }}
+          <button class="btn btn-outline-primary" type="submit">Добавить</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
   <div class="row">
     {% for item in item_list %}
     <div class="col-11">
@@ -21,19 +34,6 @@
       <hr>
     </div>
     {% endfor %}
-  </div>
-</div>
-
-
-<div class="container">
-  <div class="row">
-    <div class="col-6 mx-auto">
-      <form method="POST" action="{% url 'add_item_to_category_url' object.pk %}">
-        {% csrf_token %}
-        {{ form|crispy }}
-        <button class="btn btn-outline-primary" type="submit">Добавить</button>
-      </form>
-    </div>
   </div>
 </div>
 {% endblock %}
