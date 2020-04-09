@@ -62,7 +62,7 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             {% for category in categories %}
-            <a class="dropdown-item" href="#" tabindex="-1" aria-disabled="true">{{ category.title }}</a>
+            <a class="dropdown-item" href="{% url 'category_item_url' pk=category.pk %}" tabindex="-1" aria-disabled="true">{{ category.title }}</a>
             {% endfor %}
           </div>
           {% endif %}

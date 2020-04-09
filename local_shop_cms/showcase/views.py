@@ -91,3 +91,14 @@ class ItemDelete(LoginRequiredMixin, DeleteView):
 
         messages.success(request, 'Товар успешно удалён')
         return super().delete(request, *args, **kwargs)
+
+
+class CategoryItemList(ListView):
+    '''
+    This class shows items by categories
+    '''
+    model = Item
+    paginate_by = 9
+
+    def get_queryset(self):
+        return Item.objects.filter(category_id=self.kwargs['pk'])
