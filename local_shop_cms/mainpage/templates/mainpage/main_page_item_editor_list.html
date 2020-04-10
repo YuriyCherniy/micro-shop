@@ -10,10 +10,12 @@
 <div class="container">
   <div class="alert alert-secondary" role="alert">
     <h4 class="alert-heading">Редактор главной страницы.</h4>
-    <p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so
-      that you can see how spacing within an alert works with this kind of content.</p>
+    <p>Рекомендуемое количество товаров на главной странице 3, 6 или 9 штук. Товары размещённые на главной не
+      отображаются в списке при переходе по ссылке "<a href="{% url 'item_list_url' %}">Ещё товары >>></a>" внизу
+      главной страницы.</p>
     <hr>
-    <p class="mb-0"><a href="{% url 'add_item_to_main_page_url' %}" class="alert-link">Добавить новый товар на главную</a></p>
+    <p class="mb-0"><a href="{% url 'add_item_to_main_page_url' %}" class="alert-link">Добавить новый товар на
+        главную</a></p>
   </div>
 </div>
 <div class="container">
@@ -27,8 +29,10 @@
         <p class="card-text">{{ object.item_on_main_page.description|truncatechars:100 }}</p>
 
         <div class="row mt-auto">
-          <a href="{% url 'update_item_on_main_page_url' object.pk %}" class="btn btn-outline-primary mx-auto">Изменить позицию</a>
-          <a href="{% url 'delete_item_from_main_page_url' object.pk %}" class="btn btn-outline-danger mx-auto">Удалить</a>
+          <a href="{% url 'update_item_on_main_page_url' object.pk %}" class="btn btn-outline-primary mx-auto">Изменить
+            позицию</a>
+          <a href="{% url 'delete_item_from_main_page_url' object.pk %}"
+            class="btn btn-outline-danger mx-auto">Удалить</a>
         </div>
 
       </div>

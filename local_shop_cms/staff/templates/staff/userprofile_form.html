@@ -7,16 +7,24 @@
 {% endblock %}
 
 {% block content %}
+
 <div class="container">
-  <div class="row">
-    <div class="col-lg-8 mx-auto">
-      <form method="POST">
-        {% csrf_token %}
-        {{ form|crispy }}
-        <button class="btn btn-outline-primary" type="submit">Сохранить</button>
-      </form>
-    </div>
+  <div class="alert alert-secondary" role="alert">
+    <h4 class="alert-heading">Профиль.</h4>
+    <p>Ссылки на соцальные сети повысят уровень доверия. Для добавления активных иконок в футер сайта вставьте ссылку на
+      профиль соответствующей социальной сети.</p>
   </div>
-  <hr>
-</div>
-{% endblock %}
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <form method="POST">
+          {% csrf_token %}
+          {{ form|crispy }}
+          <button class="btn btn-outline-primary" type="submit">Сохранить</button>
+        </form>
+      </div>
+    </div>
+    <hr>
+  </div>
+  {% endblock %}
