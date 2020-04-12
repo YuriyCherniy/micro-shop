@@ -111,7 +111,7 @@ class MainPageEditorUpdate(LoginRequiredMixin, View):
             ItemOnMainPage.objects.filter(pk=pk).update(
                 position=form.cleaned_data['position']
             )
-            messages.success(request, 'Товар успешно отредактирован')
+            messages.success(request, 'Позиция товара успешно изменена')
             return redirect('main_page_editor_url')
         else:
             messages.warning(request, 'Что-то пошло не так!')
