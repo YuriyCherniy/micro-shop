@@ -20,6 +20,16 @@ class ItemList(ListView):
     paginate_by = 9
 
 
+class ItemsWithoutMainPageItemsList(ListView):
+    model = Item
+    template_name = 'showcase/item_list.html'
+
+    def get_queryset(self):
+        items = ItemOnMainPage.objects.all()
+        pk_list = [item.item_on_main_page_id for item in items]
+        return Item.objects.exclude(pk__in=pk_list)
+
+
 class ItemDetail(DetailView):
     model = Item
 
