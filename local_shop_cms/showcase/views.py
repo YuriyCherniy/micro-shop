@@ -41,8 +41,7 @@ class ItemCreate(LoginRequiredMixin, CreateView):
     raise_exception = True
 
     def get(self, request):
-        count = Item.objects.count()
-        if count == 100:
+        if Item.objects.count() == 100:
             messages.warning(request, 'Нельзя добавить больше 100 товаров')
             return redirect('/')
         return super().get(request)
