@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
+from django.urls import reverse_lazy
 from django.db import IntegrityError
 from django.shortcuts import redirect, render
 from django.views.generic import (
@@ -28,7 +29,7 @@ class MainPageEditorList(LoginRequiredMixin, ListView):
 
 class MainPageEditorDelete(LoginRequiredMixin, DeleteView):
     model = ItemOnMainPage
-    success_url = '/main-page-editor'
+    success_url = reverse_lazy('main_page_editor_url')
     template_name = 'mainpage/item_on_main_page_confirm_delete.html'
     raise_exception = True
 
