@@ -40,6 +40,13 @@ class ItemCreate(LoginRequiredMixin, CreateView):
     success_message = 'Товар успешно добавлен'
     raise_exception = True
 
+    def get(self, request):
+        count = Item.objects.count()
+        if count == 100:
+            messages.warning(request, 'Нельзя добавить больше 100 товаров')
+            return redirect('/')
+        return super().get(request)
+
     def post(self, request):
         form = ItemModelForm(request.POST, request.FILES)
         if form.is_valid():
