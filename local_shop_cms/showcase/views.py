@@ -37,7 +37,6 @@ class ItemDetail(DetailView):
 class ItemCreate(LoginRequiredMixin, CreateView):
     model = Item
     fields = ['title', 'description', 'image', 'price', 'category']
-    success_message = 'Товар успешно добавлен'
     raise_exception = True
 
     def get(self, request):
@@ -50,7 +49,7 @@ class ItemCreate(LoginRequiredMixin, CreateView):
         form = ItemModelForm(request.POST, request.FILES)
         if form.is_valid():
             new_item = form.save()
-            messages.success(request, self.success_message)
+            messages.success(request, 'Товар успешно добавлен')
             return redirect(new_item)
         return render(request, 'showcase/item_form.html', {'form': form})
 
