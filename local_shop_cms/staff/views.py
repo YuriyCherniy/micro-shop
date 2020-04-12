@@ -7,9 +7,10 @@ from staff.models import UserProfile
 
 class UserProfileUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = UserProfile
+    success_message = 'Данные обновлены'
+    raise_exception = True
+
     fields = [
         'phone_number', 'instagram', 'vk',
         'facebook', 'twitter', 'telegram', 'whatsapp'
     ]
-    success_message = 'Данные обновлены'
-    raise_exception = True
