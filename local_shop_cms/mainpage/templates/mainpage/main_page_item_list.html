@@ -13,14 +13,14 @@
   <div class="row">
     {% for object in object_list %}
     <div class="card mx-auto mb-2" style="width: 22rem;">
-      <a href="items/item-{{ object.item_on_main_page.pk }}"><img src="{{ object.item_on_main_page.image.url }}" class="card-img-top"
+      <a href="{{ object.get_absolute_url }}"><img src="{{ object.item_on_main_page.image.url }}" class="card-img-top"
           alt="{{ object.item_on_main_page.title }}"></a>
       <div class="card-body" style="display: flex; flex-direction: column;">
         <h5 class="card-title">{{ object.item_on_main_page.title }}</h5>
         <p class="card-text">{{ object.item_on_main_page.description|truncatechars:100 }}</p>
 
         <div class="row mt-auto">
-          <a href="{{ object.get_absolute_url }}" class="btn btn-outline-primary mx-auto">{{ object.price }} ₽</a>
+          <a href="{{ object.get_absolute_url }}" class="btn btn-outline-primary mx-auto">{{ object.item_on_main_page.price }} ₽</a>
           <a href="tel:{{ social_links.phone_number }}"
             class="btn {% if social_links.phone_number %}btn-outline-primary{% else %}btn-outline-danger{% endif %} mx-auto">Позвонить</a>
           {% get_messenger as messenger %}
