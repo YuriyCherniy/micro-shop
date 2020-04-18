@@ -3,6 +3,7 @@ from django import template
 from mainpage.models import ItemOnMainPage
 from showcase.models import Item
 
+
 register = template.Library()
 
 
