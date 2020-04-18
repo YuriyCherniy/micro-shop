@@ -13,8 +13,7 @@ class MessengerForm(forms.Form):
     messenger = forms.ChoiceField(
         choices=[
             ('whatsapp', 'WhatsApp'),
-            ('telegram', 'Telegram'),
-            ('viber', 'Viber')
+            ('telegram', 'Telegram')
         ],
         label='Мессенджер для связи'
     )
