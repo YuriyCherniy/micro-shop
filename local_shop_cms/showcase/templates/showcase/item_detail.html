@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load messenger_tags %}
+
 {% block title %}
 {{ object.title }}
 {% endblock %}
@@ -23,7 +25,14 @@
           <hr>
           <p class="mb-0">
             <a href="tel:{{ social_links.phone_number }}" class="btn btn-outline-primary mx-2">Позвонить</a>
-            <a href="//wa.me/{{ social_links.phone_number }}" class="btn btn-outline-success mx-2">WhatsApp</a>
+            {% get_messenger as messenger %}
+            {% if messenger == 'whatsapp' %}
+            <a href="//wa.me/{{ social_links.phone_number|stringformat:'s'|slice:'1:' }}"
+              class="btn {% if social_links.phone_number %}btn-outline-success{% else %}btn-outline-danger{% endif %} mx-auto">WhatsApp</a>
+            {% elif messenger == 'telegram' %}
+            <a href="{% get_telegram_user_link %}"
+            class="btn {% if social_links.phone_number %}btn-outline-primary{% else %}btn-outline-danger{% endif %} mx-auto">Telegram</a>
+            {% endif %}
           </p>
           {% endif %}
         </div>
