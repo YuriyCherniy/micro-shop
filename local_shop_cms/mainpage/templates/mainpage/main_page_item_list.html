@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
-{% load messenger_tags %}
+
+{% load messenger_tags more_items_button_tags %}
+
 {% block content %}
 {% if user.is_authenticated and not social_links.phone_number %}
 <div class="container">
@@ -20,7 +22,8 @@
         <p class="card-text">{{ object.item_on_main_page.description|truncatechars:100 }}</p>
 
         <div class="row mt-auto">
-          <a href="{{ object.get_absolute_url }}" class="btn btn-outline-primary mx-auto">{{ object.item_on_main_page.price }} ₽</a>
+          <a href="{{ object.get_absolute_url }}"
+            class="btn btn-outline-primary mx-auto">{{ object.item_on_main_page.price }} ₽</a>
           <a href="tel:{{ social_links.phone_number }}"
             class="btn {% if social_links.phone_number %}btn-outline-primary{% else %}btn-outline-danger{% endif %} mx-auto">Позвонить</a>
           {% get_messenger as messenger %}
@@ -29,7 +32,7 @@
             class="btn {% if social_links.phone_number %}btn-outline-success{% else %}btn-outline-danger{% endif %} mx-auto">WhatsApp</a>
           {% elif messenger == 'telegram' %}
           <a href="{% get_telegram_user_link %}"
-          class="btn {% if social_links.phone_number %}btn-outline-primary{% else %}btn-outline-danger{% endif %} mx-auto">Telegram</a>
+            class="btn {% if social_links.phone_number %}btn-outline-primary{% else %}btn-outline-danger{% endif %} mx-auto">Telegram</a>
           {% endif %}
         </div>
 
@@ -38,7 +41,10 @@
     {% endfor %}
   </div>
 
+  {% showe_more_items_button as showe_more_items_button %}
+  {% if showe_more_items_button %}
   <a href="{% url 'remain_items_url' %}" class="btn btn-outline-primary">Ещё товары >>></a>
+  {% endif %}
 
 </div>
 {% endblock %}
