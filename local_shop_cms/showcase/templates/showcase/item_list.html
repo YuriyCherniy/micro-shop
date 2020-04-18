@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load messenger_tags %}
 {% block content %}
 {% if user.is_authenticated and not social_links.phone_number %}
 <div class="container">
@@ -22,8 +23,19 @@
           <a href="{{ object.get_absolute_url }}" class="btn btn-outline-primary mx-auto">{{ object.price }} ₽</a>
           <a href="tel:{{ social_links.phone_number }}"
             class="btn {% if social_links.phone_number %}btn-outline-primary{% else %}btn-outline-danger{% endif %} mx-auto">Позвонить</a>
-          <a href="//wa.me/{{ social_links.phone_number }}"
+
+          {% get_messenger as messenger %}
+          {% if messenger == 'whatsapp' %}
+          <a href="//wa.me/{{ social_links.phone_number|stringformat:'s'|slice:'1:' }}"
             class="btn {% if social_links.phone_number %}btn-outline-success{% else %}btn-outline-danger{% endif %} mx-auto">WhatsApp</a>
+          {% elif messenger == 'telegram' %}
+          <a href="{% get_telegram_user_link %}"
+          class="btn {% if social_links.phone_number %}btn-outline-primary{% else %}btn-outline-danger{% endif %} mx-auto">Telegram</a>
+          {% elif messenger == 'viber' %}
+          <a href="viber://chat?number=%2B{{ social_links.phone_number|stringformat:'s'|slice:'1:' }}"
+          class="btn {% if social_links.phone_number %}btn-outline-info{% else %}btn-outline-danger{% endif %} mx-auto">Viber</a>
+          {% endif %}
+
         </div>
   
       </div>

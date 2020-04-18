@@ -2,6 +2,8 @@
 
 {% load crispy_forms_tags %}
 
+
+
 {% block title %}
 Профиль
 {% endblock %}
@@ -20,7 +22,15 @@
       <div class="col-lg-8 mx-auto">
         <form method="POST">
           {% csrf_token %}
-          {{ form|crispy }}
+          {{ form.phone_number|as_crispy_field }}
+          {{ form.telegram_user_link|as_crispy_field }}
+          {{ messanger_form|crispy }}
+          {{ form.instagram|as_crispy_field }}
+          {{ form.vk|as_crispy_field }}
+          {{ form.facebook|as_crispy_field }}
+          {{ form.twitter|as_crispy_field }}
+          {{ form.telegram|as_crispy_field }}
+          {{ form.whatsapp|as_crispy_field }}
           <button class="btn btn-outline-primary" type="submit">Сохранить</button>
         </form>
       </div>

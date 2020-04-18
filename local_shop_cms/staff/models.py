@@ -53,6 +53,14 @@ class UserProfile(models.Model):
         help_text='Оставьте поле пустым, чтобы не отображать ссылку в футере.'
     )
 
+    telegram_user_link = models.URLField(
+        blank=True,
+        verbose_name='Ссылка на Telegram UserName',
+        help_text='Заполните поле если используете Telegram в качестве мессенджера для связи.'
+    )
+
+    messenger = models.CharField(max_length=50, default='whatsapp')
+
     def __str__(self):
         return f'Пользователь: {self.user.username}'
 
