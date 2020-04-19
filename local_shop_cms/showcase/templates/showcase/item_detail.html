@@ -14,36 +14,39 @@
 
 {% block content %}
 
-<body class="text-center">
-  <div class="container">
-    <div class="row">
-      <div class="col-12 col-lg-4">
-        <img src="{{ object.image.url }}" class="card-img-top" alt="...">
-        <div class="alert alert-info mt-2" role="alert">
-          <h5 class="alert-heading">Цена {{ object.price }} ₽</h5>
-          {% if social_links.phone_number %}
-          <hr>
-          <p class="mb-0">
-            <a href="tel:{{ social_links.phone_number }}" class="btn btn-outline-primary mx-2">Позвонить</a>
-            {% get_messenger as messenger %}
-            {% if messenger == 'whatsapp' %}
-            <a href="//wa.me/{{ social_links.phone_number|stringformat:'s'|slice:'1:' }}"
-              class="btn {% if social_links.phone_number %}btn-outline-success{% else %}btn-outline-danger{% endif %} mx-auto">WhatsApp</a>
-            {% elif messenger == 'telegram' %}
-            <a href="{% get_telegram_user_link %}"
-            class="btn {% if social_links.phone_number %}btn-outline-primary{% else %}btn-outline-danger{% endif %} mx-auto">Telegram</a>
-            {% endif %}
-          </p>
-          {% endif %}
-        </div>
-      </div>
-      <div class="col-12 col-lg-8">
-        <h1 class="text-break">{{ object.title }}</h1>
-        <hr color="#00CED1">
-        <h4 class="text-break">{{ object.description }}</h4>
-      </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1 class="text-center">{{ object.title }}</h1>
+      <hr color="#00CED1">
     </div>
   </div>
-  <hr>
-</body>
+  <div class="row">
+    <div class="col-lg-4">
+      <img src="{{ object.image.url }}" class="card-img-top" alt="...">
+      <div class="alert alert-info mt-2 text-center" role="alert">
+        <h5 class="alert-heading">Цена {{ object.price }} ₽</h5>
+        {% if social_links.phone_number %}
+        <hr>
+        <p>
+          <a href="tel:{{ social_links.phone_number }}" class="btn btn-outline-primary mx-2">Позвонить</a>
+          {% get_messenger as messenger %}
+          {% if messenger == 'whatsapp' %}
+          <a href="//wa.me/{{ social_links.phone_number|stringformat:'s'|slice:'1:' }}"
+            class="btn {% if social_links.phone_number %}btn-outline-success{% else %}btn-outline-danger{% endif %} mx-auto">WhatsApp</a>
+          {% elif messenger == 'telegram' %}
+          <a href="{% get_telegram_user_link %}"
+            class="btn {% if social_links.phone_number %}btn-outline-primary{% else %}btn-outline-danger{% endif %} mx-auto">Telegram</a>
+          {% endif %}
+        </p>
+        {% endif %}
+      </div>
+    </div>
+    <div class="col-lg-8">
+      <h4 class="text-justify mt-lg-5">{{ object.description }}</h4>
+    </div>
+  </div>
+</div>
+
 {% endblock %}
