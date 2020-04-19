@@ -20,7 +20,7 @@ class TestItemOnMainPageModel(TestCase):
         )
 
     def test__str__method(self):
-        self.assertEquals(self.on_main_page.__str__(), 'Test title')
+        self.assertEquals(self.on_main_page.__str__(), 'test title')
 
     def test_get_absolute_url_method(self):
         self.assertEquals(

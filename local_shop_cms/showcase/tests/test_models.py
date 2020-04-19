@@ -13,9 +13,6 @@ class TestModels(TestCase):
             price=100
         )
 
-    def test_item_title_capitalization(self):
-        self.assertEquals(self.item.title, 'Some title')
-
     def test_item_str_method(self):
         self.assertEquals(self.item.__str__(), self.item.title)
 
