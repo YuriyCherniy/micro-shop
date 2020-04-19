@@ -36,10 +36,6 @@ class Item(models.Model):
     price = models.IntegerField(verbose_name='цена')
     pub_date = models.DateTimeField(auto_now_add=True)
 
-    def save(self, *args, **kwargs):
-        self.title = self.title.capitalize()
-        super().save(*args, **kwargs)
-
     def __str__(self):
         return self.title
 
