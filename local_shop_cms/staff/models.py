@@ -16,7 +16,9 @@ class UserProfile(models.Model):
     phone_number = PhoneNumberField(
         blank=True,
         verbose_name='номер телефона',
-        help_text='Без номера телефона кнопки "Позвонить" и "WhatsApp" не активны.'
+        help_text='''
+        Без номера телефона кнопки "Позвонить" и "WhatsApp" не активны.
+        '''
     )
     instagram = models.URLField(
         blank=True,
@@ -56,7 +58,10 @@ class UserProfile(models.Model):
     telegram_user_link = models.URLField(
         blank=True,
         verbose_name='Ссылка на Telegram UserName',
-        help_text='Заполните поле если используете Telegram в качестве мессенджера для связи.'
+        help_text='''
+        Заполните поле если используете Telegram
+        в качестве мессенджера для связи.
+        '''
     )
 
     messenger = models.CharField(
@@ -67,7 +72,7 @@ class UserProfile(models.Model):
         ],
         default='whatsapp',
         verbose_name='Мессенджер для связи',
-        help_text='Выберите в какой мессенджер перенаправлять пользователя'
+        help_text='Выберите в какой мессенджер перенаправлять пользователя.'
     )
 
     def __str__(self):
