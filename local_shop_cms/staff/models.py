@@ -59,7 +59,16 @@ class UserProfile(models.Model):
         help_text='Заполните поле если используете Telegram в качестве мессенджера для связи.'
     )
 
-    messenger = models.CharField(max_length=50, default='whatsapp')
+    messenger = models.CharField(
+        max_length=10,
+        choices=[
+            ('whatsapp', 'WhatsApp'),
+            ('telegram', 'Telegram')
+        ],
+        default='whatsapp',
+        verbose_name='Мессенджер для связи',
+        help_text='Выберите в какой мессенджер перенаправлять пользователя'
+    )
 
     def __str__(self):
         return f'Пользователь: {self.user.username}'
