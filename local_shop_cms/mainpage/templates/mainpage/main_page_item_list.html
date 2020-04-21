@@ -28,7 +28,7 @@
             class="btn {% if social_links.phone_number %}btn-outline-primary{% else %}btn-outline-danger{% endif %} mx-auto">Позвонить</a>
           {% get_messenger as messenger %}
           {% if messenger == 'whatsapp' %}
-          <a href="//wa.me/{{ social_links.phone_number|stringformat:'s'|slice:'1:' }}"
+          <a href="//wa.me/{{ social_links.phone_number|stringformat:'s'|slice:'1:' }}?text={{ request.scheme }}://{{ request.get_host }}{{ object.get_absolute_url }}"
             class="btn {% if social_links.phone_number %}btn-outline-success{% else %}btn-outline-danger{% endif %} mx-auto">WhatsApp</a>
           {% elif messenger == 'telegram' %}
           <a href="{% get_telegram_user_link %}"

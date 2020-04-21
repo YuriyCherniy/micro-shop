@@ -18,18 +18,18 @@
       <div class="card-body" style="display: flex; flex-direction: column;">
         <h5 class="card-title">{{ object.title }}</h5>
         <p class="card-text">{{ object.description|truncatechars:100 }}</p>
-  
+
         <div class="row mt-auto">
           <a href="{{ object.get_absolute_url }}" class="btn btn-outline-primary mx-auto">{{ object.price }} ₽</a>
           <a href="tel:{{ social_links.phone_number }}"
             class="btn {% if social_links.phone_number %}btn-outline-primary{% else %}btn-outline-danger{% endif %} mx-auto">Позвонить</a>
           {% get_messenger as messenger %}
           {% if messenger == 'whatsapp' %}
-          <a href="//wa.me/{{ social_links.phone_number|stringformat:'s'|slice:'1:' }}"
+          <a href="//wa.me/{{ social_links.phone_number|stringformat:'s'|slice:'1:' }}?text={{ request.scheme }}://{{ request.get_host }}{{ object.get_absolute_url }}"
             class="btn {% if social_links.phone_number %}btn-outline-success{% else %}btn-outline-danger{% endif %} mx-auto">WhatsApp</a>
           {% elif messenger == 'telegram' %}
           <a href="{% get_telegram_user_link %}"
-          class="btn {% if social_links.phone_number %}btn-outline-primary{% else %}btn-outline-danger{% endif %} mx-auto">Telegram</a>
+            class="btn {% if social_links.phone_number %}btn-outline-primary{% else %}btn-outline-danger{% endif %} mx-auto">Telegram</a>
           {% endif %}
         </div>
   
