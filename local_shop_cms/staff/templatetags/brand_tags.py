@@ -11,4 +11,4 @@ def get_brand():
     '''
     set brand name instead of 'Главная' in the navbar
     '''
-    return UserProfile.objects.first().branding
+    return UserProfile.objects.first().brand
