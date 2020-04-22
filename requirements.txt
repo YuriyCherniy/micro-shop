@@ -3,4 +3,4 @@ django-cleanup==4.0.0
 django-crispy-forms==1.8.1
 django-phonenumber-field==4.0.0
 phonenumbers==8.11.1
-Pillow==6.2.1
+Pillow==6.2.2
