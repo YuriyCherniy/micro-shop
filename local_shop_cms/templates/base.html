@@ -71,7 +71,7 @@
           <a class="nav-item nav-link active" href="{% url 'item_list_url' %}">Все товары<span
               class="sr-only">(current)</span></a>
         </li>
-        {% if user.is_authenticated %}
+        {% if user.is_authenticated and user.is_superuser %}
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
