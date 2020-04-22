@@ -75,6 +75,14 @@ class UserProfile(models.Model):
         help_text='Выберите в какой мессенджер перенаправлять пользователя.'
     )
 
+    branding = models.CharField(
+        max_length=25,
+        default='Главная',
+        verbose_name='Брендирование витрины',
+        help_text='''Этот текст будет отображаться вместо
+        кнопки "Главная" в навигацилнной панели сайта.'''
+    )
+
     def __str__(self):
         return f'Пользователь: {self.user.username}'
 
