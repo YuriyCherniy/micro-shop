@@ -21,19 +21,25 @@ class Item(models.Model):
     title = models.CharField(
         max_length=20,
         verbose_name='название',
-        help_text='Длинна названия не может превышать 20 символов.'
+        help_text='Длинна названия не должна превышать 20 символов.'
     )
+
     image = models.ImageField(
         upload_to='item_images',
-        verbose_name='изображение'
+        verbose_name='изображение',
+        help_text='''Формат изображения должен быть 1×1,
+        рекомендуемое разрешение 600×600 пикселей.'''
     )
+
     description = models.TextField(
         validators=[MinLengthValidator(100)],
         max_length=500,
         verbose_name='описание',
         help_text='Длинна описания должна быть от 100 до 500 символов.'
     )
+
     price = models.IntegerField(verbose_name='цена')
+
     pub_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

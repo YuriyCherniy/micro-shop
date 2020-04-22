@@ -11,10 +11,10 @@ class ItemModelForm(ModelForm):
 
     def clean_image(self):
         '''
-        Only 1:1 format is allowed
+        Only 1×1 format is allowed
         '''
         image = self.cleaned_data.get('image')
         width, height = get_image_dimensions(image)
         if width == height:
             return image
-        raise ValidationError('Формат изображения должен быть 1:1!')
+        raise ValidationError('Формат изображения должен быть 1×1!')
