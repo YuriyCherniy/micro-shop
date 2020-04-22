@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% load messenger_tags more_items_button_tags %}
+{% load messenger_tags more_items_button_tags currency_tags %}
 
 {% block content %}
 {% if user.is_authenticated and not social_links.phone_number %}
@@ -23,7 +23,7 @@
 
         <div class="row mt-auto">
           <a href="{{ object.get_absolute_url }}"
-            class="btn btn-outline-primary mx-auto">{{ object.item_on_main_page.price }} ₽</a>
+            class="btn btn-outline-primary mx-auto">{{ object.item_on_main_page.price }} {% get_currency %}</a>
           <a href="tel:{{ social_links.phone_number }}"
             class="btn {% if social_links.phone_number %}btn-outline-primary{% else %}btn-outline-danger{% endif %} mx-auto">Позвонить</a>
           {% get_messenger as messenger %}

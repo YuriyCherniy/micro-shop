@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% load messenger_tags %}
+{% load messenger_tags currency_tags %}
 
 {% block title %}
 {{ object.title }}
@@ -25,7 +25,7 @@
     <div class="col-lg-4">
       <img src="{{ object.image.url }}" class="card-img-top" alt="...">
       <div class="alert alert-info mt-2 text-center" role="alert">
-        <h5 class="alert-heading">Цена {{ object.price }} ₽</h5>
+        <h5 class="alert-heading">Цена {{ object.price }} {% get_currency %}</h5>
         {% if social_links.phone_number %}
         <hr>
         <p>
