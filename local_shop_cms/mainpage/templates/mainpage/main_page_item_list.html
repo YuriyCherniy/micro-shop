@@ -3,7 +3,7 @@
 {% load messenger_tags more_items_button_tags currency_tags %}
 
 {% block content %}
-{% if user.is_authenticated and not social_links.phone_number %}
+{% if user.is_authenticated and user.is_superuser and not social_links.phone_number %}
 <div class="container">
   <div class="alert alert-danger text-center" role="alert">
     Для полноценной работы витрины добвьте номер телефона в <a href="{% url 'profile_url' user.userprofile.pk %}"
@@ -11,6 +11,54 @@
   </div>
 </div>
 {% endif %}
+
+{% if not object_list %}
+<div class="container">
+  <div class="row">
+    <div class="col text-justify">
+      <h6>
+        Авторизируйтесь в административной панели по ссылке <a
+          href="{{ request.scheme }}://{{ request.get_host }}/admin">{{ request.scheme }}://{{ request.get_host }}/admin</a>
+        и вернитесь на главную страницу сайта. Запомните ссылку для авторизации, выйти из системы или снова
+        авторизироваться, а также изменить пароль и логин можно только в админ-панели. Остальные данные рекомендуется
+        редактировать черей интерфейс сайта. Пользуйтесь админ-панелью только в том случае, если точно знаете, что
+        делаете. Начните работу с заполнения профиля администратора в настройках: Настройки > Прфиль. Затем добавьте
+        несколько товаров и оформите главную страницу: Настройки > Редактор главной. Разделить товары на категории можно
+        в редакторе категорий: Настройки > Редактор категорий. Ссылки на добавленные категории появятся автоматически в
+        навигационной панели после их создания. Добавлять, редактировать и удалять товары можно через интерактивные
+        кнопки в навигационной панели сайта. Этот текс исчезнет автоматически после добавления товаров на главную
+        страницу.
+      </h6>
+      <hr>
+      <small>
+        <p><b>This product is distributed under MIT license.</b></p>
+        <p>
+          Permission is hereby granted, free of charge, to any person obtaining a copy
+          of this software and associated documentation files (the "Software"), to deal
+          in the Software without restriction, including without limitation the rights
+          to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+          copies of the Software, and to permit persons to whom the Software is
+          furnished to do so, subject to the following conditions:
+        </p>
+        <p>
+          The above copyright notice and this permission notice shall be included in all
+          copies or substantial portions of the Software.
+        </p>
+        <p>
+          THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+          IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+          FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+          AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+          LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+          OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+          SOFTWARE.
+        </p>
+      </small>
+    </div>
+  </div>
+</div>
+{% endif %}
+
 <div class="container">
   <div class="row">
     {% for object in object_list %}
