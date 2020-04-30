@@ -22,9 +22,8 @@ class ItemList(ListView):
 
 class ItemsWithoutMainPageItemsList(ListView):
     '''
-    This class shows all items exclude
-    ones presented on main page. It needs
-    for 'Ещё товары' button.
+    This class shows all items exclude ones presented
+    on main page. It needs for 'Ещё товары' button.
     '''
     model = Item
     template_name = 'showcase/item_list.html'
