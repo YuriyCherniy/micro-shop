@@ -82,9 +82,8 @@ class ItemUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         if form.is_valid():
             return super().post(request, *args, **kwargs)
 
-        obj = Item.objects.get(pk=kwargs['pk'])
         return render(
-            request, 'showcase/item_update_form.html', {'form': form, 'object': obj}
+            request, 'showcase/item_update_form.html', {'form': form}
         )
 
 
