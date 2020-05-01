@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
+from django.core.management.utils import get_random_secret_key
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -20,7 +22,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '(7o7%lscwmq%lqs07gt1-e80cuchnne5tm0k(w=t5z@6oe#5%y'
+try:
+    with open(os.path.join(BASE_DIR, 'shop/SECRET_KEY')) as f:
+        SECRET_KEY = f.read()
+except FileNotFoundError:
+    SECRET_KEY = get_random_secret_key()
+    with open(os.path.join(BASE_DIR, 'shop/SECRET_KEY'), 'w') as f:
+        f.write(SECRET_KEY)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
