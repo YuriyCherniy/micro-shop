@@ -6,3 +6,4 @@ media/
 *.pyc
 *.sqlite3
 .coverage
+SECRET_KEY
