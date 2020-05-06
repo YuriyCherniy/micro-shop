@@ -19,9 +19,9 @@ class Item(models.Model):
     )
 
     title = models.CharField(
-        max_length=20,
+        max_length=30,
         verbose_name='название',
-        help_text='Длинна названия не должна превышать 20 символов.'
+        help_text='Длинна названия не должна превышать 30 символов.'
     )
 
     image = models.ImageField(
