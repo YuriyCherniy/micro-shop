@@ -20,6 +20,13 @@ class UserProfile(models.Model):
         Без номера телефона кнопки "Позвонить" и "WhatsApp" не активны.
         '''
     )
+
+    market = models.URLField(
+        blank=True,
+        verbose_name='профиль на торговой площадке ("Юла", "Avito и т.д.").',
+        help_text='Оставьте поле пустым, чтобы не отображать ссылку в футере.'
+    )
+
     instagram = models.URLField(
         blank=True,
         verbose_name='профиль Instagram',

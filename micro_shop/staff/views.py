@@ -11,6 +11,6 @@ class UserProfileUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     raise_exception = True
     fields = [
         'phone_number', 'telegram_user_link', 'messenger',
-        'brand', 'currency', 'instagram', 'vk', 'facebook',
-        'twitter', 'telegram', 'whatsapp'
+        'brand', 'currency', 'market', 'instagram', 'vk',
+        'facebook', 'twitter', 'telegram', 'whatsapp'
     ]

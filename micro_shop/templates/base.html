@@ -122,6 +122,10 @@
           </div>
         </div>
         <div class="footer-right">
+          {% if social_links.market %}
+          <a href="{{ social_links.market }}"><img src="{% static 'cart.svg' %}" class="mr-3"></a>
+          {% endif %}
+
           {% if social_links.instagram %}
           <a href="{{ social_links.instagram }}"><img src="{% static 'instagram1.svg' %}" class="mr-3"></a>
           {% endif %}
