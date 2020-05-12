@@ -31,8 +31,8 @@
       flex: 1 0 auto;
     }
 
-    .footer {
-      flex-shrink: 0;
+    footer {
+      background-color: #f28659;
     }
 
     .nav-item,
@@ -45,7 +45,7 @@
 
 <body>
 
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
+  <nav class="navbar navbar-expand-lg navbar-dark mb-3" style="background-color: #fa7218">
     <a class="navbar-brand" href="{% url 'main_page_url' %}">{% get_brand %}</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
       aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -112,7 +112,7 @@
   </div>
 
 
-  <footer class="footer mt-2" style="background: #F6F6E8">
+  <footer class="footer mt-2">
     <div class="container my-2">
       <div class="d-sm-flex justify-content-between">
         <div class="footer-left">
