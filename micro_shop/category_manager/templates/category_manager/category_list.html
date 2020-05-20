@@ -22,7 +22,10 @@
       <h5><a href="{% url 'category_detail_url' object.pk %}">{{ object.title }}</a></h5>
     </div>
     <div class="col-lg-5">
+      <!--
+        текущая реализация учитывает архивные товары, требуется коррекция object.item_set.count
       <h5>содержит товаров - {{ object.item_set.count }}</h5>
+      -->
     </div>
     <div class="col-lg-3">
       <div class="row mx-auto">
