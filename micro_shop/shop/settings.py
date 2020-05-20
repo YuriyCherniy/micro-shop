@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'mainpage',
     'showcase',
     'staff',
+    'color_theme',
     'crispy_forms',
     'phonenumber_field',
     'django_cleanup'
