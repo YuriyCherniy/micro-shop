@@ -19,6 +19,9 @@ class ItemList(ListView):
     model = Item
     paginate_by = 9
 
+    def get_queryset(self):
+        return Item.objects.filter(is_archived=False)
+
 
 class ItemsWithoutMainPageItemsList(ListView):
     '''
@@ -26,12 +29,22 @@ class ItemsWithoutMainPageItemsList(ListView):
     on main page. It needs for 'Ещё товары' button.
     '''
     model = Item
+    paginate_by = 9
     template_name = 'showcase/item_list.html'
 
     def get_queryset(self):
-        items = ItemOnMainPage.objects.all()
-        pk_list = [item.item_on_main_page_id for item in items]
-        return Item.objects.exclude(pk__in=pk_list)
+        items_on_main_page = ItemOnMainPage.objects.all()
+        pk_list = [item.item_on_main_page_id for item in items_on_main_page]
+        return Item.objects.exclude(pk__in=pk_list).filter(is_archived=False)
+
+
+class ArchivedItemList(LoginRequiredMixin, ListView):
+    model = Item
+    paginate_by = 9
+    raise_exception = True
+
+    def get_queryset(self):
+        return Item.objects.filter(is_archived=True)
 
 
 class ItemDetail(DetailView):
@@ -40,7 +53,9 @@ class ItemDetail(DetailView):
 
 class ItemCreate(LoginRequiredMixin, CreateView):
     model = Item
-    fields = ['title', 'description', 'image', 'price', 'category']
+    fields = [
+        'title', 'description', 'image', 'price', 'category', 'is_archived'
+    ]
     raise_exception = True
 
     def get(self, request):
@@ -60,7 +75,9 @@ class ItemCreate(LoginRequiredMixin, CreateView):
 
 class ItemUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Item
-    fields = ['title', 'description', 'image', 'price', 'category']
+    fields = [
+        'title', 'description', 'image', 'price', 'category',  'is_archived'
+    ]
     success_message = 'Описание товара успешно отредактировано'
     template_name = 'showcase/item_update_form.html'
     raise_exception = True
@@ -70,16 +87,27 @@ class ItemUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         Method redifinition for image format validaitig
         and adding a default image to form
         '''
+        item = Item.objects.get(pk=kwargs['pk'])
 
         # add a default image to form if the user has not made a choice
         try:
             request.FILES['image']
         except KeyError:
-            request.FILES['image'] = Item.objects.get(pk=kwargs['pk']).image
+            request.FILES['image'] = item.image
 
         form = ItemModelForm(request.POST, request.FILES)
         if form.is_valid():
-            return super().post(request, *args, **kwargs)
+
+            # prohibit adding items to the archive from the main page
+            if all([hasattr(item, 'itemonmainpage'), form.cleaned_data['is_archived']]):
+                messages.warning(
+                    request, 'Нельзя поместить в архив товар размещённый на главной странице'
+                )
+                return render(
+                    request, 'showcase/item_update_form.html', {'form': form}
+                )
+            else:
+                return super().post(request, *args, **kwargs)
 
         return render(
             request, 'showcase/item_update_form.html', {'form': form}
@@ -119,4 +147,6 @@ class CategoryItemList(ListView):
     paginate_by = 9
 
     def get_queryset(self):
-        return Item.objects.filter(category_id=self.kwargs['pk'])
+        items = Item.objects.exclude(is_archived=True)
+        items = items.filter(category_id=self.kwargs['pk'])
+        return items

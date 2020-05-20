@@ -41,6 +41,13 @@ class Item(models.Model):
 
     price = models.IntegerField(verbose_name='цена')
 
+    is_archived = models.BooleanField(
+        default=False,
+        choices=[(True, 'Да'), (False, 'Нет')],
+        verbose_name='Поместить товар в архив',
+        help_text='Архивированные товары не отображаются посетителям сайта.'
+    )
+
     pub_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

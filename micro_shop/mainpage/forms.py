@@ -6,7 +6,7 @@ from mainpage.models import ItemOnMainPage
 
 class ItemOnMainPageCreateForm(forms.Form):
     item_on_main_page = forms.ModelChoiceField(
-        queryset=Item.objects.all(),
+        queryset=Item.objects.all().exclude(is_archived=True),
         label='Выберите товар'
     )
 
