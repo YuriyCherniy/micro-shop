@@ -29,19 +29,20 @@ class TestForms(SimpleTestCase):
         self.data = {
             'title': 'test_title`',
             'description': 'test_description' * 10,
-            'price': 500
+            'price': 500, 'is_archived': False
         }
 
     def test_item_model_form_no_data(self):
         form = ItemModelForm(data={})
         self.assertFalse(form.is_valid())
-        self.assertEquals(len(form.errors), 4)
+        self.assertEquals(len(form.errors), 5)
 
     def test_item_model_form_clean_image_method_valid_format(self):
         file_data = {
             'image': create_test_image(600, 600)
         }
-        form = ItemModelForm(data=self.data, files=file_data)
+        form = ItemModelForm(data=self.data, files=file_data,)
+        form.is_valid()
         self.assertTrue(form.is_valid())
 
     def test_item_model_form_clean_image_method_invalid_format(self):
