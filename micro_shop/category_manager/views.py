@@ -36,9 +36,11 @@ class CategoryDetail(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
         context['item_list'] = Item.objects.filter(
             category_id=self.kwargs['pk']
-        )
+        ).exclude(is_archived=True)
+
         context['form'] = ItemChoiceForm
         return context
 
