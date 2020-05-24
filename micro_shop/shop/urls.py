@@ -23,6 +23,7 @@ from mainpage.views import MainPageItemList
 
 urlpatterns = [
     path('', MainPageItemList.as_view(), name='main_page_url'),
+    path('color-theme/', include('color_theme.urls')),
     path('admin/', admin.site.urls),
     path('main-page-editor/', include('mainpage.urls')),
     path('items/', include('showcase.urls')),
