@@ -6,7 +6,7 @@ class ColorTheme(models.Model):
         max_length=15,
         choices=[
             ('#30373e #f5f8e9', 'Classic'),
-            ('#32cd66 #32cd66', 'Mint'),
+            ('#32cd66 #32cd66', 'Just Green'),
             ('#4682B4 #00CED1', 'Aqua'),
             ('#BA55D3 #EE82EE', 'Violet'),
             ('#000080 #0000FF', 'Navy Blue'),
