@@ -1,5 +1,6 @@
 from django.views.generic import View
 from django.shortcuts import render, redirect
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import ColorTheme
@@ -22,3 +23,6 @@ class ColorThemeUpdate(LoginRequiredMixin, View):
                 colors=form.cleaned_data['colors']
             )
             return redirect('color_theme_update_url')
+
+        messages.warning(request, 'Что-то пошло не так')
+        return redirect('color_theme_update_url')
