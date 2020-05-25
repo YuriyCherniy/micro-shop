@@ -30,6 +30,24 @@ class CategoryCreate(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     raise_exception = True
 
 
+class CategoryDelete(LoginRequiredMixin, DeleteView):
+    model = Category
+    success_url = reverse_lazy('category_list_url')
+    raise_exception = True
+
+    def delete(self, request, **kwargs):
+        messages.success(request, 'Категория удалена')
+        return super().delete(request, **kwargs)
+
+
+class CategoryUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = Category
+    fields = ['title']
+    success_url = reverse_lazy('category_list_url')
+    success_message = 'Категория переименована'
+    raise_exception = True
+
+
 class CategoryDetail(LoginRequiredMixin, DetailView):
     model = Category
     raise_exception = True
@@ -73,20 +91,3 @@ class DeleteItemFromCategory(LoginRequiredMixin, View):
             reverse('category_detail_url', args=[category_pk])
         )
 
-
-class CategoryDelete(LoginRequiredMixin, DeleteView):
-    model = Category
-    success_url = reverse_lazy('category_list_url')
-    raise_exception = True
-
-    def delete(self, request, **kwargs):
-        messages.success(request, 'Категория удалена')
-        return super().delete(request, **kwargs)
-
-
-class CategoryUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
-    model = Category
-    fields = ['title']
-    success_url = reverse_lazy('category_list_url')
-    success_message = 'Категория переименована'
-    raise_exception = True
