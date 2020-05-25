@@ -90,4 +90,3 @@ class DeleteItemFromCategory(LoginRequiredMixin, View):
         return redirect(
             reverse('category_detail_url', args=[category_pk])
         )
-
