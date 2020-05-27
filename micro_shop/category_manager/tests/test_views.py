@@ -56,7 +56,7 @@ class TestViews(TestCase):
         response = self.c.get(reverse('category_update_url', args=[1]))
         self.assertEqual(response.status_code, 403)
 
-    # template used
+    # template used tests
     def test_category_list_template_used(self):
         self.c.post(
             '/admin/login/', {'username': 'test', 'password': 'test'}
@@ -106,7 +106,11 @@ class TestViews(TestCase):
         self.c.post(
             '/admin/login/', {'username': 'test', 'password': 'test'}
         )
-        response = self.c.get(reverse('add_item_to_category_url', args=[1]))
+        response = self.c.post(
+            reverse('add_item_to_category_url', args=[1]),
+            {'item': 1},
+            follow=True
+        )
         self.assertTemplateUsed(
             response, 'category_manager/category_detail.html'
         )
