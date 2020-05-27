@@ -9,7 +9,6 @@ from django.views.generic import (
     DeleteView,
     ListView,
     DetailView,
-    FormView,
     View
 )
 
@@ -63,11 +62,10 @@ class CategoryDetail(LoginRequiredMixin, DetailView):
         return context
 
 
-class AddItemToCategory(LoginRequiredMixin, FormView):
-    form_class = ItemChoiceForm
+class AddItemToCategory(LoginRequiredMixin, View):
     raise_exception = True
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request, **kwargs):
         item = Item.objects.filter(pk=request.POST['item'])
         item.update(category=kwargs['pk'])
         messages.success(request, 'Товар добавлен в категорию')
