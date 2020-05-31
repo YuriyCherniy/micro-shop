@@ -19,42 +19,84 @@ class TestViews(TestCase):
             user_id=1
         )
 
+        category = Category.objects.create(title='test_category')
+
         Item.objects.create(
-            title='test', description='test', price=1
+            title='test', description='test', price=1, category=category
         )
 
-        Category.objects.create(title='test')
-
     # status code 403 tests
+
     def test_category_list_view_status_code_403(self):
         response = self.c.get(reverse('category_list_url'))
         self.assertEqual(response.status_code, 403)
 
-    def test_category_create_view_status_code_403(self):
+    def test_category_create_view_status_code_403_get(self):
         response = self.c.get(reverse('category_create_url'))
+        self.assertEqual(response.status_code, 403)
+
+    def test_category_create_view_status_code_403_post(self):
+        response = self.c.post(reverse('category_create_url'))
         self.assertEqual(response.status_code, 403)
 
     def test_category_detail_view_status_code_403(self):
         response = self.c.get(reverse('category_detail_url', args=[1]))
         self.assertEqual(response.status_code, 403)
 
-    def test_add_item_to_category_view_status_code_403(self):
+    def test_add_item_to_category_view_status_code_403_get(self):
         response = self.c.get(reverse('add_item_to_category_url', args=[1]))
         self.assertEqual(response.status_code, 403)
 
-    def test_delete_item_from_category_view_status_code_403(self):
+    def test_add_item_to_category_view_status_code_403_post(self):
+        response = self.c.post(reverse('add_item_to_category_url', args=[1]))
+        self.assertEqual(response.status_code, 403)
+
+    def test_delete_item_from_category_view_status_code_403_get(self):
         response = self.c.get(
             reverse('delete_item_from_category_url', args=[1])
         )
         self.assertEqual(response.status_code, 403)
 
-    def test_category_delete_view_status_code_403(self):
+    def test_delete_item_from_category_view_status_code_403_post(self):
+        response = self.c.post(
+            reverse('delete_item_from_category_url', args=[1])
+        )
+        self.assertEqual(response.status_code, 403)
+
+    def test_category_delete_view_status_code_403_get(self):
         response = self.c.get(reverse('category_delete_url', args=[1]))
         self.assertEqual(response.status_code, 403)
 
-    def test_category_update_view_status_code_403(self):
+    def test_category_delete_view_status_code_403_post(self):
+        response = self.c.post(reverse('category_delete_url', args=[1]))
+        self.assertEqual(response.status_code, 403)
+
+    def test_category_update_view_status_code_403_get(self):
         response = self.c.get(reverse('category_update_url', args=[1]))
         self.assertEqual(response.status_code, 403)
+
+    def test_category_update_view_status_code_403_post(self):
+        response = self.c.post(reverse('category_update_url', args=[1]))
+        self.assertEqual(response.status_code, 403)
+
+    # status code 302 tests
+    def test_add_item_to_category_status_code_302(self):
+        self.c.post(
+            '/admin/login/', {'username': 'test', 'password': 'test'}
+        )
+        response = self.c.post(
+            reverse('add_item_to_category_url', args=[1]), {'item': 1}
+        )
+        self.assertEqual(response.status_code, 302)
+
+    def test_delete_item_from_category_status_code_302(self):
+        self.c.post(
+            '/admin/login/', {'username': 'test', 'password': 'test'}
+        )
+        response = self.c.post(
+            reverse('delete_item_from_category_url', args=[1])
+        )
+        self.assertEqual(response.status_code, 302)
 
     # template used tests
     def test_category_list_template_used(self):
