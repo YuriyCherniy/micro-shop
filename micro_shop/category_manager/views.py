@@ -80,13 +80,13 @@ class AddItemToCategory(LoginRequiredMixin, View):
 class DeleteItemFromCategory(LoginRequiredMixin, View):
     raise_exception = True
 
-    def get(self, request, *args, **kwargs):
-        item = Item.objects.get(pk=kwargs['pk'])
+    def get(self, request, pk):
+        item = Item.objects.get(pk=pk)
         template = 'category_manager/item_from_category_confirm_delete.html'
         return render(request, template, {'item': item})
 
-    def post(self, request, *args, **kwargs):
-        item = Item.objects.filter(pk=kwargs['pk'])
+    def post(self, request, pk):
+        item = Item.objects.filter(pk=pk)
         category_pk = item[0].category.pk
         item.update(category=None)
         messages.success(request, 'Товар удалён из категории')
