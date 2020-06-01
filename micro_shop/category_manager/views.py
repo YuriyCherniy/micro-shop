@@ -65,11 +65,16 @@ class CategoryDetail(LoginRequiredMixin, DetailView):
 class AddItemToCategory(LoginRequiredMixin, View):
     raise_exception = True
 
-    def post(self, request, **kwargs):
-        item = Item.objects.filter(pk=request.POST['item'])
-        item.update(category=kwargs['pk'])
-        messages.success(request, 'Товар добавлен в категорию')
-        return redirect(reverse('category_detail_url', args=[kwargs['pk']]))
+    def post(self, request, pk):
+        form = ItemChoiceForm(request.POST)
+        if form.is_valid():
+            item = Item.objects.filter(pk=form.cleaned_data['item'].pk)
+            item.update(category=pk)
+            messages.success(request, 'Товар добавлен в категорию')
+        else:
+            messages.warning(request, 'Что-то пошло не так')
+
+        return redirect(reverse('category_detail_url', args=[pk]))
 
 
 class DeleteItemFromCategory(LoginRequiredMixin, View):
