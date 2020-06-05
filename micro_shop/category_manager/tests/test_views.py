@@ -169,6 +169,7 @@ class TestViews(TestCase):
             response, 'category_manager/item_from_category_confirm_delete.html'
         )
 
+    # others tests
     def test_category_detail_context_data_item_list(self):
         Item.objects.create(
             title='test2',

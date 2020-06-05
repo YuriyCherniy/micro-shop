@@ -46,6 +46,7 @@ class TestView(TestCase):
         response = self.c.post(reverse('color_theme_update_url'), follow=True)
         self.assertTemplateUsed(response, 'color_theme/color_theme_form.html')
 
+    # others tests
     def test_color_theme_update_view_valid_data_post(self):
         self.c.post(
             '/admin/login/', {'username': 'test', 'password': 'test'}
