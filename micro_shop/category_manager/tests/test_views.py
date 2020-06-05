@@ -1,10 +1,11 @@
-from django.test import TestCase, Client
 from django.urls import reverse
+from django.test import TestCase, Client
 from django.contrib.auth.models import User
 
+from showcase.models import Item
 from staff.models import UserProfile
 from category_manager.models import Category
-from showcase.models import Item
+from category_manager.forms import ItemChoiceForm
 
 
 class TestViews(TestCase):
@@ -19,10 +20,10 @@ class TestViews(TestCase):
             user_id=1
         )
 
-        category = Category.objects.create(title='test_category')
+        self.category = Category.objects.create(title='test_category')
 
         Item.objects.create(
-            title='test', description='test', price=1, category=category
+            title='test1', description='test1', price=1, category=self.category
         )
 
     # status code 403 tests
@@ -167,3 +168,53 @@ class TestViews(TestCase):
         self.assertTemplateUsed(
             response, 'category_manager/item_from_category_confirm_delete.html'
         )
+
+    def test_category_detail_context_data_item_list(self):
+        Item.objects.create(
+            title='test2',
+            description='test2',
+            price=100,
+            category=self.category,
+            is_archived=True
+        )
+        self.c.post(
+            '/admin/login/', {'username': 'test', 'password': 'test'}
+        )
+        response = self.c.get(reverse('category_detail_url', args=[1]))
+        self.assertEqual(
+            len(response.context['item_list']), 1
+        )
+
+    def test_category_detail_context_data_form(self):
+        self.c.post(
+            '/admin/login/', {'username': 'test', 'password': 'test'}
+        )
+        response = self.c.get(reverse('category_detail_url', args=[1]))
+        self.assertIs(
+            response.context['form'], ItemChoiceForm
+        )
+
+    def test_add_item_to_category_works_correctly(self):
+        Item.objects.create(
+            title='test2', description='test2', price=100,
+        )
+        self.c.post(
+            '/admin/login/', {'username': 'test', 'password': 'test'}
+        )
+        self.c.post(
+            reverse('add_item_to_category_url', args=[1]),
+            data={'item': 2}
+        )
+        self.assertEqual(
+            len(Item.objects.filter(category_id=1)), 2
+        )
+
+    def test_delete_item_from_category_works_correctly_post(self):
+        self.c.post(
+            '/admin/login/', {'username': 'test', 'password': 'test'}
+        )
+        self.c.post(
+            reverse('delete_item_from_category_url', args=[1]),
+        )
+        item = Item.objects.get(pk=1)
+        self.assertIsNone(item.category_id)
