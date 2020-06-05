@@ -215,7 +215,7 @@ class TestViews(TestCase):
         )
         self.c.post(
             reverse('add_item_to_category_url', args=[1]),
-            data={},
+            data={}
         )
         self.assertNotEqual(
             len(Item.objects.filter(category_id=1)), 2
