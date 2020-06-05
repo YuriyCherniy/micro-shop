@@ -17,8 +17,12 @@ class TestViews(TestCase):
     def setUp(self):
         self.c = Client()
 
-    def test_user_profile_update_view_status_code_403(self):
+    def test_user_profile_update_view_status_code_403_get(self):
         response = self.c.get(reverse('profile_url', args=[1]))
+        self.assertEquals(response.status_code, 403)
+
+    def test_user_profile_update_view_status_code_403_post(self):
+        response = self.c.post(reverse('profile_url', args=[1]))
         self.assertEquals(response.status_code, 403)
 
     def test_user_profile_update_view_status_code_200(self):
