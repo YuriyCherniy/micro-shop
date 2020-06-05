@@ -54,7 +54,9 @@ class TestView(TestCase):
             reverse('color_theme_update_url'),
             {'colors': ['#32CD32 #F08080']},
         )
-        self.assertEqual(ColorTheme.objects.get(pk=1).colors, '#32CD32 #F08080')
+        self.assertEqual(
+            ColorTheme.objects.get(pk=1).colors, '#32CD32 #F08080'
+        )
 
     def test_color_theme_update_view_not_valid_data_post(self):
         self.c.post(
