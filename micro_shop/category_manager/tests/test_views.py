@@ -194,7 +194,7 @@ class TestViews(TestCase):
             response.context['form'], ItemChoiceForm
         )
 
-    def test_add_item_to_category_works_correctly(self):
+    def test_add_item_to_category_valid_data_post(self):
         Item.objects.create(
             title='test2', description='test2', price=100,
         )
@@ -208,6 +208,19 @@ class TestViews(TestCase):
         self.assertEqual(
             len(Item.objects.filter(category_id=1)), 2
         )
+
+    def test_add_item_to_category_not_valid_data_post(self):
+        self.c.post(
+            '/admin/login/', {'username': 'test', 'password': 'test'}
+        )
+        self.c.post(
+            reverse('add_item_to_category_url', args=[1]),
+            data={},
+        )
+        self.assertNotEqual(
+            len(Item.objects.filter(category_id=1)), 2
+        )
+
 
     def test_delete_item_from_category_works_correctly_post(self):
         self.c.post(
