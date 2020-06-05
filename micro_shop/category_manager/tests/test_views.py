@@ -221,7 +221,6 @@ class TestViews(TestCase):
             len(Item.objects.filter(category_id=1)), 2
         )
 
-
     def test_delete_item_from_category_works_correctly_post(self):
         self.c.post(
             '/admin/login/', {'username': 'test', 'password': 'test'}
