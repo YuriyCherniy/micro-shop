@@ -6,7 +6,7 @@ from staff.models import UserProfile
 from color_theme.models import ColorTheme
 
 
-class TestView(TestCase):
+class TestViews(TestCase):
 
     def setUp(self):
         self.c = Client()
