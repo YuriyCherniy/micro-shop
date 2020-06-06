@@ -83,10 +83,6 @@ class ItemUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     raise_exception = True
 
     def post(self, request, *args, **kwargs):
-        '''
-        Method redifinition for image format validaitig
-        and adding a default image to form
-        '''
         item = Item.objects.get(pk=kwargs['pk'])
 
         # add a default image to form if the user has not made a choice
