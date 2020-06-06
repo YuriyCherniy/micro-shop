@@ -34,10 +34,9 @@ class TestForms(SimpleTestCase):
 
     def test_item_model_form_no_data(self):
         form = ItemModelForm(data={})
-        self.assertFalse(form.is_valid())
-        self.assertEquals(len(form.errors), 5)
+        self.assertEqual(len(form.errors), 5)
 
-    def test_item_model_form_clean_image_method_valid_format(self):
+    def test_item_model_form_clean_image_format_1x1_valid_data(self):
         file_data = {
             'image': create_test_image(600, 600)
         }
@@ -45,7 +44,7 @@ class TestForms(SimpleTestCase):
         form.is_valid()
         self.assertTrue(form.is_valid())
 
-    def test_item_model_form_clean_image_method_invalid_format(self):
+    def test_item_model_form_clean_image_format_1x1_invalid_data(self):
         file_data = {
             'image': create_test_image(600, 601)
         }

@@ -12,15 +12,16 @@ class ItemModelForm(ModelForm):
         ]
 
     def clean_image(self):
-        '''
-        Only 1×1 format is allowed
-        '''
         image = self.cleaned_data.get('image')
 
+        # only 1000000 bytes max size is allowed
         if image.size > 1000000:
-            raise ValidationError('Размер изображения не должен превышать 1 мегабайта!')
+            raise ValidationError(
+                'Размер изображения не должен превышать 1 мегабайта!'
+            )
 
+        # only 1×1 format is allowed
         width, height = get_image_dimensions(image)
-        if width == height:
-            return image
-        raise ValidationError('Формат изображения должен быть 1×1!')
+        if width != height:
+            raise ValidationError('Формат изображения должен быть 1×1!')
+        return image
