@@ -103,9 +103,6 @@ class ItemUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
                 messages.warning(
                     request, 'Нельзя поместить в архив товар размещённый на главной странице'
                 )
-                return render(
-                    request, 'showcase/item_update_form.html', {'form': form}
-                )
             else:
                 return super().post(request, *args, **kwargs)
 
