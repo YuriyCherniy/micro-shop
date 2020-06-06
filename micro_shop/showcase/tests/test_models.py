@@ -9,7 +9,7 @@ class TestModels(TestCase):
         self.item = Item.objects.create(
             title='some title',
             description='some description',
-            image='1.jpg',
+            image='/test.jpg',
             price=100
         )
 

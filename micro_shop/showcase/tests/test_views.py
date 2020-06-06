@@ -19,8 +19,9 @@ def add_items_to_db_on_main_page(item_amount):
 
 class TestViews(TestCase):
 
-    @classmethod
-    def setUpTestData(cls):
+    def setUp(self):
+        self.c = Client()
+
         User.objects.create_superuser(
             username='test', email='test@mail.ru', password='0000'
         )
@@ -32,20 +33,37 @@ class TestViews(TestCase):
         )
         ItemOnMainPage.objects.create(item_on_main_page_id=1, position=1)
 
-    def setUp(self):
-        self.c = Client()
-
-    def test_item_delete_view_status_code_403(self):
+    # status code 403 tests
+    def test_item_delete_view_status_code_403_get(self):
         response = self.c.get(reverse('item_delete_url', args=[1]))
         self.assertEquals(response.status_code, 403)
 
-    def test_item_create_view_status_code_403(self):
+    def test_item_delete_view_status_code_403_delete(self):
+        response = self.c.delete(reverse('item_delete_url', args=[1]))
+        self.assertEquals(response.status_code, 403)
+
+    def test_item_create_view_status_code_403_get(self):
         response = self.c.get(reverse('item_create_url'))
         self.assertEquals(response.status_code, 403)
 
-    def test_item_update_view_status_code_403(self):
+    def test_item_create_view_status_code_403_post(self):
+        response = self.c.post(reverse('item_create_url'))
+        self.assertEquals(response.status_code, 403)
+
+    def test_item_update_view_status_code_403_get(self):
         response = self.c.get(reverse('item_update_url', args=[1]))
         self.assertEquals(response.status_code, 403)
+
+    def test_item_update_view_status_code_403_post(self):
+        response = self.c.post(reverse('item_update_url', args=[1]))
+        self.assertEquals(response.status_code, 403)
+
+    def test_archived_item_list_view_status_code_403(self):
+        response = self.c.get(reverse('archived_items_list'))
+        self.assertEqual(response.status_code, 403)
+
+
+
 
     def test_item_delete_view_status_code_302(self):
         self.c.post(
