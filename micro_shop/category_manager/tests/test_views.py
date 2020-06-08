@@ -136,13 +136,24 @@ class TestViews(TestCase):
             response, 'category_manager/category_form.html'
         )
 
-    def test_category_delete_template_used(self):
+    def test_category_delete_template_used_get(self):
         self.c.post(
             '/admin/login/', {'username': 'test', 'password': 'test'}
         )
         response = self.c.get(reverse('category_delete_url', args=[1]))
         self.assertTemplateUsed(
             response, 'category_manager/category_confirm_delete.html'
+        )
+
+    def test_category_delete_template_used_delete(self):
+        self.c.post(
+            '/admin/login/', {'username': 'test', 'password': 'test'}
+        )
+        response = self.c.delete(
+            reverse('category_delete_url', args=[1]), follow=True
+        )
+        self.assertTemplateUsed(
+            response, 'category_manager/category_list.html'
         )
 
     def test_add_item_to_category_template_used(self):
