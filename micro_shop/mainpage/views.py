@@ -100,7 +100,7 @@ class MainPageEditorUpdate(LoginRequiredMixin, View):
 
     def post(self, request, pk):
         '''
-        rearranges items on main page
+        Rearranges items on main page
         '''
         form = ItemOnMainPageUpdateForm(request.POST)
         if form.is_valid():
