@@ -113,7 +113,6 @@ class MainPageEditorUpdate(LoginRequiredMixin, View):
                 position=form.cleaned_data['position']
             )
             messages.success(request, 'Позиция товара успешно изменена')
-            return redirect('main_page_editor_url')
         else:
             messages.warning(request, 'Что-то пошло не так!')
-            return redirect(request, '/')
+        return redirect('main_page_editor_url')
