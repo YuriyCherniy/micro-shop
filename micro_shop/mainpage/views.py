@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.urls import reverse_lazy
 from django.db import IntegrityError
 from django.shortcuts import redirect, render
+from django.db import transaction
 from django.views.generic import (
     View,
     ListView,
@@ -69,10 +70,11 @@ class MainPageEditorCreate(LoginRequiredMixin, View):
         form = ItemOnMainPageCreateForm(request.POST)
         if form.is_valid():
             try:
-                ItemOnMainPage.objects.create(
-                    item_on_main_page=form.cleaned_data['item_on_main_page'],
-                    position=ItemOnMainPage.objects.count() + 1
-                )
+                with transaction.atomic():
+                    ItemOnMainPage.objects.create(
+                        item_on_main_page=form.cleaned_data['item_on_main_page'],
+                        position=ItemOnMainPage.objects.count() + 1
+                    )
                 messages.success(request, 'Товар успешно добавлен на главную')
             except IntegrityError:
                 messages.warning(request, 'Этот товар уже есть на главной')
