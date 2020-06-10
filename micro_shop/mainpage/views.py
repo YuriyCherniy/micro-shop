@@ -74,13 +74,11 @@ class MainPageEditorCreate(LoginRequiredMixin, View):
                     position=ItemOnMainPage.objects.count() + 1
                 )
                 messages.success(request, 'Товар успешно добавлен на главную')
-                return redirect('main_page_editor_url')
             except IntegrityError:
                 messages.warning(request, 'Этот товар уже есть на главной')
-                return redirect('main_page_editor_url')
         else:
             messages.warning(request, 'Что-то пошло не так!')
-            return redirect(request, '/')
+        return redirect('main_page_editor_url')
 
 
 class MainPageEditorUpdate(LoginRequiredMixin, View):
