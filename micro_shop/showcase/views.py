@@ -82,8 +82,8 @@ class ItemUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     template_name = 'showcase/item_update_form.html'
     raise_exception = True
 
-    def post(self, request, *args, **kwargs):
-        item = Item.objects.get(pk=kwargs['pk'])
+    def post(self, request, pk):
+        item = Item.objects.get(pk=pk)
 
         # add a default image to form if the user has not made a choice
         try:
@@ -100,7 +100,7 @@ class ItemUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
                     request, 'Нельзя поместить в архив товар размещённый на главной странице'
                 )
             else:
-                return super().post(request, *args, **kwargs)
+                return super().post(request, pk)
 
         return render(
             request, 'showcase/item_update_form.html', {'form': form}
@@ -112,14 +112,14 @@ class ItemDelete(LoginRequiredMixin, DeleteView):
     success_url = '/'
     raise_exception = True
 
-    def delete(self, request, *args, **kwargs):
+    def delete(self, request, pk):
         '''
         If the item is presented on the main page, reorder
         the position of the dependent items on main page
         and add flash message
         '''
 
-        item = Item.objects.get(pk=kwargs['pk'])
+        item = Item.objects.get(pk=pk)
         if hasattr(item, 'itemonmainpage'):
             repositioned_items = ItemOnMainPage.objects.filter(
                 position__gt=item.itemonmainpage.position
@@ -129,7 +129,7 @@ class ItemDelete(LoginRequiredMixin, DeleteView):
                 item.save()
 
         messages.success(request, 'Товар успешно удалён')
-        return super().delete(request, *args, **kwargs)
+        return super().delete(request, pk)
 
 
 class CategoryItemList(ListView):
