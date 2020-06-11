@@ -5,6 +5,8 @@ from .models import Item
 
 
 class ItemModelForm(ModelForm):
+    use_required_attribute = False
+
     class Meta:
         model = Item
         fields = [
