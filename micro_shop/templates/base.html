@@ -98,10 +98,10 @@
         </li>
         {% endblock %}
         {% block update_delete_buttons %}{% endblock %}
-        {% endif %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'archived_items_list' %}" tabindex="-1" aria-disabled="true">Архив</a>
         </li>
+        {% endif %}
       </ul>
     </div>
   </nav>

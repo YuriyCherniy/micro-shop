@@ -12,7 +12,7 @@
             <h2>Удалить {{ item }} из категории?</h2>
         </fieldset>
         <button class="btn btn-danger" type="submit">Да</button>
-        <a class="btn btn-secondary" href="{% url 'category_detail_url' item.category.pk %}">Отменить</a>
+        <a class="btn btn-secondary" href="{{ item.category.get_absolute_url }}">Отменить</a>
     </form>
 </div>
 {% endblock %}

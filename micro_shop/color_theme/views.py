@@ -18,11 +18,10 @@ class ColorThemeUpdate(LoginRequiredMixin, View):
 
     def post(self, request):
         form = ColorThemeForm(request.POST)
-        if form.is_valid():
+        if not form.is_valid():
+            messages.warning(request, 'Что-то пошло не так')
+        else:
             ColorTheme.objects.filter(pk=1).update(
                 colors=form.cleaned_data['colors']
             )
-            return redirect('color_theme_update_url')
-
-        messages.warning(request, 'Что-то пошло не так')
         return redirect('color_theme_update_url')

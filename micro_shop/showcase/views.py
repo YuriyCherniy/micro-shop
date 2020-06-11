@@ -59,8 +59,8 @@ class ItemCreate(LoginRequiredMixin, CreateView):
     raise_exception = True
 
     def get(self, request):
-        if Item.objects.count() == 100:
-            messages.warning(request, 'Нельзя добавить больше 100 товаров')
+        if Item.objects.count() == 500:
+            messages.warning(request, 'Нельзя добавить больше 500 товаров')
             return redirect('main_page_url')
         return super().get(request)
 
@@ -83,10 +83,6 @@ class ItemUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     raise_exception = True
 
     def post(self, request, *args, **kwargs):
-        '''
-        Method redifinition for image format validaitig
-        and adding a default image to form
-        '''
         item = Item.objects.get(pk=kwargs['pk'])
 
         # add a default image to form if the user has not made a choice
@@ -102,9 +98,6 @@ class ItemUpdate(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
             if all([hasattr(item, 'itemonmainpage'), form.cleaned_data['is_archived']]):
                 messages.warning(
                     request, 'Нельзя поместить в архив товар размещённый на главной странице'
-                )
-                return render(
-                    request, 'showcase/item_update_form.html', {'form': form}
                 )
             else:
                 return super().post(request, *args, **kwargs)
