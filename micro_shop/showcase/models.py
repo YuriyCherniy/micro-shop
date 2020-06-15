@@ -36,7 +36,7 @@ class Item(models.Model):
         validators=[MinLengthValidator(50)],
         max_length=500,
         verbose_name='описание',
-        help_text='Длинна описания должна быть от 100 до 500 символов.'
+        help_text='Длинна описания не должна превышать 500 символов.'
     )
 
     price = models.IntegerField(verbose_name='цена')
