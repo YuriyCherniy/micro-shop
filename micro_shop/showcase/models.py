@@ -33,6 +33,7 @@ class Item(models.Model):
     )
 
     description = models.TextField(
+        blank=True,
         max_length=500,
         verbose_name='описание',
         help_text='Длинна описания не должна превышать 500 символов.'
