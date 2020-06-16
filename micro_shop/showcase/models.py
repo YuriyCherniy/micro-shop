@@ -1,6 +1,5 @@
 from django.db import models
 from django.shortcuts import reverse
-from django.core.validators import MinLengthValidator
 
 from category_manager.models import Category
 
