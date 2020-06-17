@@ -1,6 +1,5 @@
 from django.db import models
 from django.shortcuts import reverse
-from django.core.validators import MinLengthValidator
 
 from category_manager.models import Category
 
@@ -33,10 +32,10 @@ class Item(models.Model):
     )
 
     description = models.TextField(
-        validators=[MinLengthValidator(50)],
+        blank=True,
         max_length=500,
         verbose_name='описание',
-        help_text='Длинна описания должна быть от 100 до 500 символов.'
+        help_text='Длинна описания не должна превышать 500 символов.'
     )
 
     price = models.IntegerField(verbose_name='цена')

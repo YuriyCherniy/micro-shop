@@ -23,7 +23,7 @@ class UserProfile(models.Model):
 
     market = models.URLField(
         blank=True,
-        verbose_name='профиль на торговой площадке ("Юла", "Avito и т.д.").',
+        verbose_name='профиль на торговой площадке ("Юла", "Avito" и т.д.).',
         help_text='Оставьте поле пустым, чтобы не отображать ссылку в футере.'
     )
 
