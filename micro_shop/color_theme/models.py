@@ -11,7 +11,7 @@ class ColorTheme(models.Model):
             ('#BA55D3 #EE82EE', 'Violet'),
             ('#000080 #0000FF', 'Navy Blue'),
             ('#DC143C #FF0000', 'Fire Red'),
-            ('#f36767 #F08080', 'Too Pink'),
+            ('#f36767 #F08080', 'Light Pink'),
             ('#fa7218 #f28659', 'Very Orange'),
             ('#F08080 #32CD32', 'Pink-Green'),
             ('#32CD32 #F08080', 'Green-Pink')
