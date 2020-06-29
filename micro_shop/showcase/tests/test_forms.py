@@ -34,7 +34,7 @@ class TestForms(SimpleTestCase):
 
     def test_item_model_form_no_data(self):
         form = ItemModelForm(data={})
-        self.assertEqual(len(form.errors), 5)
+        self.assertEqual(len(form.errors), 4)
 
     def test_item_model_form_clean_image_valid_data(self):
         file_data = {
