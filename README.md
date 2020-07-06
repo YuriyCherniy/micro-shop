@@ -76,6 +76,6 @@ Micro-Shop - это интернет витрина ориентированна
 
 ### Как сделать pull request ###
 
-* В общем случае вот так: ```https://github.com/firstcontributions/first-contributions/blob/master/translations/README.ru.md```
+* В общем случае вот так: [first-contributions](https://github.com/firstcontributions/first-contributions/blob/master/translations/README.ru.md)
 
 * Сюда в проект по тому же принципу. Детали обсудим в обсуждениях.
