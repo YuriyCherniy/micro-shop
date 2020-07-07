@@ -86,10 +86,10 @@
               главной</a>
             <a class="dropdown-item" href="{% url 'category_list_url' %}" tabindex="-1" aria-disabled="true">Редактор
               категорий</a>
+            <a class="dropdown-item" href="{% url 'color_theme_update_url' %}" tabindex="-1"
+              aria-disabled="true">Цветовая схема</a>
             <a class="dropdown-item" href="{% url 'profile_url' user.userprofile.pk %}" tabindex="-1"
               aria-disabled="true">Профиль</a>
-              <a class="dropdown-item" href="{% url 'color_theme_update_url' %}" tabindex="-1"
-              aria-disabled="true">Цветовая схема</a>
           </div>
         </li>
         {% block create_item_button_disappeared %}
