@@ -20,6 +20,8 @@ class ItemList(ListView):
     paginate_by = 9
 
     def get_queryset(self):
+        # TODO Норм в таких случаях получать qs из родителя - return super().get_queryset().filter(is_archived=False)
+        #  И да, у тебя где-то .exclude(is_archived=True), где-то .filter(is_archived=False). Второе мне нравится больше
         return Item.objects.filter(is_archived=False)
 
 
@@ -37,6 +39,11 @@ class ItemsWithoutMainPageItemsList(ListView):
         pk_list = [item.item_on_main_page_id for item in items_on_main_page]
         return Item.objects.exclude(pk__in=pk_list).filter(is_archived=False)
 
+    # TODO Вот так это сделать за 1 запрос
+    def get_queryset(self):
+        items_on_main_page_qs = ItemOnMainPage.objects.values('item_on_main_page_id')
+        return Item.objects.exclude(id__in=items_on_main_page_qs).filter(is_archived=False)
+
 
 class ArchivedItemList(LoginRequiredMixin, ListView):
     model = Item
@@ -53,6 +60,8 @@ class ItemDetail(DetailView):
 
 class ItemCreate(LoginRequiredMixin, CreateView):
     model = Item
+    # TODO можно указать form_class и удалить функцию post
+    form_class = ItemModelForm
     fields = [
         'title', 'description', 'image', 'price', 'category', 'is_archived'
     ]
@@ -120,7 +129,9 @@ class ItemDelete(LoginRequiredMixin, DeleteView):
         '''
 
         item = Item.objects.get(pk=pk)
+        # TODO использование hasattr это всегда вынужденная мера. Если можно использовать что-то еще - нужно использовать что-то еще
         if hasattr(item, 'itemonmainpage'):
+            # TODO Вижу этот код второй раз, просится в отдельный метод
             repositioned_items = ItemOnMainPage.objects.filter(
                 position__gt=item.itemonmainpage.position
             )
@@ -140,6 +151,7 @@ class CategoryItemList(ListView):
     paginate_by = 9
 
     def get_queryset(self):
+        # TODO когда в переменной quetyset используй постфикс _qs - это удобно
         items = Item.objects.exclude(is_archived=True)
         items = items.filter(category_id=self.kwargs['pk'])
         return items

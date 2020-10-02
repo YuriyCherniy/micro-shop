@@ -39,7 +39,7 @@ class MainPageEditorDelete(LoginRequiredMixin, DeleteView):
         Change items position after deleting one
         and add flash message
         '''
-
+        # TODO можно использовать self.get_object() чтоб получить удаляемый итем
         repositioned_items = ItemOnMainPage.objects.filter(
             position__gt=ItemOnMainPage.objects.get(pk=kwargs['pk']).position
         )
@@ -47,6 +47,7 @@ class MainPageEditorDelete(LoginRequiredMixin, DeleteView):
             item.position -= 1
             item.save()
 
+        # TODO сначала сообщение потом реальное удаление - плохо
         messages.success(request, 'Товар успешно удалён с главной')
         return super().delete(request, *args, **kwargs)
 
@@ -70,6 +71,8 @@ class MainPageEditorCreate(LoginRequiredMixin, View):
         form = ItemOnMainPageCreateForm(request.POST)
         if form.is_valid():
             try:
+                # TODO Транзакция тут не нужна - у тебя всего 1 запрос на апдейт. Подсчет все равно будет выполнен
+                #  не во время запроса на создание, а до него
                 with transaction.atomic():
                     ItemOnMainPage.objects.create(
                         item_on_main_page=form.cleaned_data['item_on_main_page'],
@@ -79,6 +82,7 @@ class MainPageEditorCreate(LoginRequiredMixin, View):
             except IntegrityError:
                 messages.warning(request, 'Этот товар уже есть на главной')
         else:
+            # TODO если форма не валидна ты должен ее вернуть чтоб могли показаться ошибки валидации юзеру
             messages.warning(request, 'Что-то пошло не так!')
         return redirect('main_page_editor_url')
 
@@ -103,6 +107,7 @@ class MainPageEditorUpdate(LoginRequiredMixin, View):
         # rearrange items on the main page
         form = ItemOnMainPageUpdateForm(request.POST)
         if form.is_valid():
+            # TODO Опять фильтры вместо гетов
             ItemOnMainPage.objects.filter(
                 position=form.cleaned_data['position']
             ).update(
@@ -113,5 +118,6 @@ class MainPageEditorUpdate(LoginRequiredMixin, View):
             )
             messages.success(request, 'Позиция товара успешно изменена')
         else:
+            # TODO если форма не валидна ты должен ее вернуть чтоб могли показаться ошибки валидации юзеру
             messages.warning(request, 'Что-то пошло не так!')
         return redirect('main_page_editor_url')
