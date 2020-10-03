@@ -7,6 +7,7 @@ from .models import ColorTheme
 from .forms import ColorThemeForm
 
 
+# TODO Опять же FormView
 class ColorThemeUpdate(LoginRequiredMixin, View):
     raise_exception = True
 
@@ -21,6 +22,8 @@ class ColorThemeUpdate(LoginRequiredMixin, View):
         if not form.is_valid():
             messages.warning(request, 'Что-то пошло не так')
         else:
+            # TODO если ты хочешь чтоб была только 1 запись в таблице - констрейнты обязательны
+            #  и еще раз, 1 объект через .update менять не стоит
             ColorTheme.objects.filter(pk=1).update(
                 colors=form.cleaned_data['colors']
             )

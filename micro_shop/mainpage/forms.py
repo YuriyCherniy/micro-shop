@@ -11,6 +11,7 @@ class ItemOnMainPageCreateForm(forms.Form):
     )
 
 
+# TODO Это должна быть ModelForm
 class ItemOnMainPageUpdateForm(forms.Form):
     def __init__(self, *args, **kwargs):
         '''

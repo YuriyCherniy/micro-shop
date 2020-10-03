@@ -42,6 +42,7 @@ def add_items_to_db_on_main_page(item_amount):
 class TestViews(TestCase):
 
     def setUp(self):
+        # TODO буквы в названиях переменных бесплатные
         self.c = Client()
 
         User.objects.create_superuser(
@@ -54,6 +55,7 @@ class TestViews(TestCase):
             title='test', description='test', image='/test.jpg', price=100
         )
         ItemOnMainPage.objects.create(item_on_main_page_id=1, position=1)
+        # TODO Где есть setUp созданием должен быть tearDown с удалением
 
     # status code 403 tests
     def test_item_delete_view_status_code_403_get(self):

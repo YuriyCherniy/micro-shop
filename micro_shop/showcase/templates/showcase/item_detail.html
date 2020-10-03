@@ -30,6 +30,8 @@
         <hr>
         <p>
           <a href="tel:{{ social_links.phone_number }}" class="btn btn-outline-primary mx-2">Позвонить</a>
+            {# TODO Это писос какая плохая практика делать запросы из шаблона. Идеально это когда шаблон не делает #}
+            {# TODO ни одного запроса к базе. Все что нужно шаблону должно передаваться в него через контекст #}
           {% get_messenger as messenger %}
           {% if messenger == 'whatsapp' %}
           <a href="//wa.me/{{ social_links.phone_number|stringformat:'s'|slice:'1:' }}?text={{ request.build_absolute_uri }}"

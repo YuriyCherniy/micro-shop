@@ -11,7 +11,7 @@ class Item(models.Model):
         ordering = ['-pub_date']
 
     category = models.ForeignKey(
-        Category, on_delete=models.SET_NULL,
+        Category, on_delete=models.SET_NULL,  # TODO Выглядит так, что тут зря SET_NULL, CASCADE подошел бы лучше
         verbose_name='Категория товара',
         null=True,
         blank=True
@@ -25,7 +25,7 @@ class Item(models.Model):
 
     image = models.ImageField(
         upload_to='item_images',
-        verbose_name='изображение',
+        verbose_name='изображение',  # TODO У тебя в строке ниже записаны все пробелы которые ты использовал для табуляции
         help_text='''Формат изображения должен быть 1×1,
         рекомендуемое разрешение 600×600 пикселей. Размер
         изображения не должен превышать 1 мегабайт.'''
