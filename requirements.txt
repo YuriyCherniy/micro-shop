@@ -1,4 +1,4 @@
-Django==2.2.13
+Django==2.2.22
 django-cleanup==4.0.0
 django-crispy-forms==1.8.1
 django-phonenumber-field==4.0.0
